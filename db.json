@@ -1,0 +1,18 @@
+
+
+{
+  "goals": [
+    {
+      "id": 1,
+      "title": "Refactor UI layout",
+      "completed": false
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Maureen",
+      "role": "Lead Developer"
+    }
+  ]
+}
