@@ -1,51 +1,75 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:3001/users")
-      .then((res) => res.json())
-      .then((data) => {
-        setUsers(data);
-        const defaultLandlord = data.find(user => user.role === 'landlord');
-        if (defaultLandlord) {
-          setCurrentUser(defaultLandlord);
-        } else if (data.length > 0) {
-          setCurrentUser(data[0]);
-        }
-      })
-      .catch((error) => console.error("Error fetching users for AuthContext:", error));
-  }, []);
-
-  const login = (username, password) => {
-    const user = users.find(u => u.username === username && u.password === password);
-    if (user) {
-      setCurrentUser(user);
-      return true;
+  
+  const [currentUser, setCurrentUser] = useState(() => {
+    try {
+      const storedUser = localStorage.getItem('currentUser');
+      return storedUser ? JSON.parse(storedUser) : null;
+    } catch (error) {
+      console.error("Failed to parse stored user from localStorage", error);
+      return null;
     }
-    return false;
+  });
+
+ 
+  useEffect(() => {
+    try {
+      if (currentUser) {
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      } else {
+        localStorage.removeItem('currentUser');
+      }
+    } catch (error) {
+      console.error("Failed to save user to localStorage", error);
+    }
+  }, [currentUser]);
+
+  const login = async (username, password) => {
+    try {
+      const response = await fetch('http://localhost:3001/users');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const users = await response.json();
+      const foundUser = users.find(
+        user => user.username === username && user.password === password
+      );
+
+      if (foundUser) {
+        setCurrentUser(foundUser);
+        console.log('Login successful:', foundUser.username);
+        return true; // Login successful
+      } else {
+        console.error('Login failed: Invalid credentials');
+        return false; // Login failed
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      return false;
+    }
   };
 
   const logout = () => {
     setCurrentUser(null);
+    console.log('Logged out');
   };
 
-  const toggleRoleForTesting = () => {
-    if (!users.length) return;
-
-    if (!currentUser || currentUser.role === 'tenant') {
-      const landlord = users.find(user => user.role === 'landlord');
-      setCurrentUser(landlord || users[0]);
-    } else {
-      const firstTenant = users.find(user => user.role === 'tenant');
-      setCurrentUser(firstTenant || users[0]);
+  // This is a utility for quick testing during development, not for production use
+  const toggleRoleForTesting = async () => {
+    if (!currentUser) {
+      // If no one is logged in, log in as landlord by default
+      await login('maureen.landlord', 'landlordpass');
+    } else if (currentUser.role === 'landlord') {
+      // If landlord, switch to tenant (e.g., kikii.tenant)
+      await login('kikii.tenant', 'tenantpass');
+    } else if (currentUser.role === 'tenant') {
+      // If tenant, switch to landlord
+      await login('maureen.landlord', 'landlordpass');
     }
   };
-
 
   return (
     <AuthContext.Provider value={{ currentUser, login, logout, toggleRoleForTesting }}>

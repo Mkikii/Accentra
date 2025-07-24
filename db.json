@@ -10,10 +10,17 @@
     },
     {
       "id": 2,
-      "name": "najma Boru",
+      "name": "Shantel Martha",
+      "unit": "A102",
+      "phone": "555-3333",
+      "email": "shantel@example.com"
+    },
+    {
+      "id": 2,
+      "name": "Jesse Kangethe",
       "unit": "B202",
       "phone": "555-2222",
-      "email": "najma@example.com",
+      "email": "ashley@example.com",
       "userId": 102
     }
   ],
