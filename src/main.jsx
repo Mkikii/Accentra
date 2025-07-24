@@ -1,10 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './MaintenanceSection.jsx'
+import MaintenanceSection from './MaintenanceSection.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <MaintenanceSection />
   </StrictMode>,
 )
