@@ -1,4 +1,5 @@
 import React from "react";
+import Access from "../Access";
 
 function TenantCard({ tenant, onToggleAccess, role }) {
   const { name, unit, phone, hasAccess } = tenant;
