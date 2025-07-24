@@ -2,7 +2,9 @@ import React from 'react'
 
 const FeedbackListCard = () => {
   return (
-    <div>FeedbackListCard</div>
+    <div>
+      
+    </div>
   )
 }
 
