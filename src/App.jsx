@@ -2,12 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 
-import Header from './Header';
-import Navigation from './navigation';
+import Header from '../Header';
+import Navigation from '../navigation';
 
 import DashboardPage from './pages/DashboardPage';
 import MaintenancePage from './pages/MaintenancePage';
-import TenantsPage from './pages/TenantsPage'; 
+import TenantsPage from './pages/TenantsPage';
 
 import './App.css';
 

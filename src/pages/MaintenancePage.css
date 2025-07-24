@@ -1,0 +1,31 @@
+.maintenance-page-container {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 20px auto;
+    background-color: #f0f2f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.maintenance-page-container h1 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.maintenance-form-section {
+    background-color: #e3f2fd;
+    border: 1px solid #bbdefb;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.maintenance-list-section {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}

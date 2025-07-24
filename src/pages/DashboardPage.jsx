@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import './DashboardPage.css'; 
+import './DashboardPage.css';
 
 function DashboardPage() {
-  const { currentUser, toggleRoleForTesting, login, logout } = useContext(AuthContext);
+  const { currentUser, login, logout } = useContext(AuthContext);
   const [allTenants, setAllTenants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  
   useEffect(() => {
     const fetchTenants = async () => {
       try {
@@ -27,12 +26,11 @@ function DashboardPage() {
     };
 
     fetchTenants();
-  }, []); // Empty dependency array means this runs once on mount
+  }, []);
 
-  // Determine which tenants to display based on the current user's role
   const displayedTenants = currentUser && currentUser.role === 'tenant'
     ? allTenants.filter(tenant => tenant.id === currentUser.tenantId)
-    : allTenants; // Landlord sees all tenants
+    : allTenants;
 
   if (loading) {
     return <div className="dashboard-container">Loading dashboard data...</div>;
@@ -48,32 +46,31 @@ function DashboardPage() {
 
       {currentUser ? (
         <div className="user-info">
-          <p>Logged in as: <strong>{currentUser.username}</strong> ({currentUser.role})</p>
+          <p>Logged in as: <strong>{currentUser.name || currentUser.username}</strong> ({currentUser.role})</p>
           {currentUser.role === 'tenant' && currentUser.tenantId && (
-            <p>Your Tenant ID: <strong>{currentUser.tenantId}</strong></p>
+            <p>Your Unit: <strong>{currentUser.unit || 'N/A'}</strong></p>
           )}
-          
           <button className="dashboard-button" onClick={logout}>Logout</button>
         </div>
       ) : (
         <div className="user-info">
           <p>Not logged in.</p>
-         
           <div className="mock-login-section">
-            <h3>Mock Login:</h3>
-            
-            <button className="dashboard-button" onClick={() => login('maureen.landlord', 'password123')}>
+            <h3>Quick Login for Development:</h3>
+            <button className="dashboard-button" onClick={() => login('landlord_john', 'adminpassword')}>
               Login as Landlord
             </button>
-            <button className="dashboard-button" onClick={() => login('ashley.tenant', 'password123')}>
-              Login as Ashley (Tenant 101)
+            <button className="dashboard-button" onClick={() => login('kikii_tenant', 'password123')}>
+              Login as Kikii (Tenant A101)
             </button>
-            <button className="dashboard-button" onClick={() => login('jesse.tenant', 'password123')}>
-              Login as Jesse (Tenant 102)
+            <button className="dashboard-button" onClick={() => login('shantel_tenant', 'password123')}>
+              Login as Shantel (Tenant A102)
             </button>
-             {/* Original toggle for simpler role change without full login */}
-            <button className="dashboard-button" onClick={toggleRoleForTesting}>
-              Toggle Role for Testing (Old Method)
+            <button className="dashboard-button" onClick={() => login('jesse_tenant', 'password123')}>
+              Login as Jesse (Tenant B202)
+            </button>
+            <button className="dashboard-button" onClick={() => login('ashley_tenant', 'password123')}>
+              Login as Ashley (Tenant C303)
             </button>
           </div>
         </div>
@@ -95,31 +92,28 @@ function DashboardPage() {
           {displayedTenants.map(tenant => (
             <div key={tenant.id} className="tenant-card-dashboard">
               <h4>{tenant.name}</h4>
-              <p>Property: {tenant.property}</p>
-              <p>Contact: {tenant.contact || 'N/A'}</p>
-              {/* You might want to display more tenant info here */}
+              <p>Unit: {tenant.unit}</p>
+              <p>Phone: {tenant.phone}</p>
+              <p>Email: {tenant.email}</p>
+              <p>Access Status: {tenant.hasAccess ? 'Active' : 'N/A'}</p>
             </div>
           ))}
         </div>
       )}
 
-      {/* Placeholder for other dashboard sections for landlord */}
       {currentUser && currentUser.role === 'landlord' && (
         <>
           <hr />
           <h2>Maintenance Request Summary (Landlord View)</h2>
-          <p>This section will summarize all maintenance requests.</p>
-          {/* Martha/Jesse's components would be integrated here */}
+          <p>This section will summarize all maintenance requests using Jesse's components.</p>
         </>
       )}
 
-      {/* Placeholder for other dashboard sections for a specific tenant */}
       {currentUser && currentUser.role === 'tenant' && (
         <>
           <hr />
           <h2>Your Maintenance Requests (Tenant View)</h2>
-          <p>This section will show only your maintenance requests.</p>
-          {/* Jesse's components would be integrated here, filtered by currentUser.tenantId */}
+          <p>This section will show only your maintenance requests using Jesse's components.</p>
         </>
       )}
     </div>

@@ -2,29 +2,106 @@
   "tenants": [
     {
       "id": 1,
-      "name": "kikii Molly",
+      "name": "Kikii Molly",
       "unit": "A101",
       "phone": "555-1111",
       "email": "kikii@example.com",
-      "userId": 101
+      "userId": 101,
+      "hasAccess": true
     },
     {
       "id": 2,
+      "name": "Shantel Martha",
+      "unit": "A102",
+      "phone": "555-3333",
+      "email": "shantel@example.com",
+      "userId": 102,
+      "hasAccess": true
+    },
+    {
+      "id": 3,
       "name": "Jesse Kangethe",
-      "unit": "A101"
+      "unit": "B202",
+      "phone": "555-2222",
+      "email": "jesse@example.com",
+      "userId": 103,
+      "hasAccess": true
+    },
+    {
+      "id": 4,
+      "name": "Ashley Mararo",
+      "unit": "C303",
+      "phone": "555-4444",
+      "email": "ashley.mararo@example.com",
+      "userId": 104,
+      "hasAccess": true
     }
   ],
   "maintenanceRequests": [
     {
       "id": 1,
       "tenantId": 1,
-      "description": "Broken AC unit",
-      "status": "In Progress"
+      "description": "Leaky faucet in kitchen.",
+      "status": "Pending",
+      "dateRequested": "2023-01-15",
+      "name": "Kikii Molly",
+      "unit": "A101",
+      "contact": "kikii@example.com"
+    },
+    {
+      "id": 2,
+      "tenantId": 2,
+      "description": "Broken AC unit.",
+      "status": "In Progress",
+      "dateRequested": "2023-01-20",
+      "name": "Shantel Martha",
+      "unit": "A102",
+      "contact": "shantel@example.com"
     }
   ],
   "users": [
     {
+      "id": 100,
+      "username": "landlord_john",
+      "password": "adminpassword",
+      "role": "landlord"
+    },
+    {
       "id": 101,
+      "username": "kikii_tenant",
+      "password": "password123",
+      "role": "tenant",
+      "tenantId": 1,
+      "name": "Kikii Molly",
+      "unit": "A101",
+      "contact": "kikii@example.com"
+    },
+    {
+      "id": 102,
+      "username": "shantel_tenant",
+      "password": "password123",
+      "role": "tenant",
+      "tenantId": 2,
+      "name": "Shantel Martha",
+      "unit": "A102",
+      "contact": "shantel@example.com"
+    },
+    {
+      "id": 103,
+      "username": "jesse_tenant",
+      "password": "password123",
+      "role": "tenant",
+      "tenantId": 3,
+      "name": "Jesse Kangethe",
+      "unit": "B202",
+      "contact": "jesse@example.com"
+    },
+    {
+      "id": 104,
+      "username": "ashley_tenant",
+      "password": "password123",
+      "role": "tenant",
+      "tenantId": 4,
       "name": "Ashley Mararo",
       "unit": "C303",
       "contact": "ashley.mararo@example.com"
