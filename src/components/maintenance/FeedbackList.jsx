@@ -17,12 +17,14 @@ const FeedbackList = ({ name, unit, phone, email }) => {
       <h2>Feedback List</h2>
       <p>Name: {name}</p>
       <p>Unit: {unit} </p>
-      
+
       <h3>Contact:</h3>
       <p>Phone: {phone}</p>
       <p>Email: {email}</p>
+
       <p>Feedback: {maintanenceFeedback.description}</p>
       <p>Date Requested: {maintanenceFeedback.dateRequested}</p>
+      
       <span>{maintanenceFeedback.status}</span>
     </div>
   )

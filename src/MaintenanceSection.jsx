@@ -3,16 +3,21 @@ import FeedbackForm from './components/maintenance/FeedbackForm'
 import FeedbackList from './components/maintenance/FeedbackList'
 
 const MaintenanceSection = () => {
-  const [tenantDetails, setTenantDetails] = useState([])
+  const [tenantsArray, setTenantsArray] = useState([])
+  const [tenantDetails, setTenant] = useState({})
   const tenantURL = "http://localhost:3000/tenants"
 
   useEffect(() =>{
     fetch(tenantURL)
     .then(r => r.json())
     .then(data =>{
-      setTenantDetails(data)
+      setTenantsArray(data)
     })
   },[])
+  
+  tenantsArray.map((tenant)=>(
+    setTenant(tenant)
+  ))
 
   return (
     <div>
