@@ -1,6 +1,14 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-const FeedbackListCard = ({ name, unit, phone, email, description, dateRequested, status }) => {
+const FeedbackListCard = ({ name, unit, phone, email, description, dateRequested}) => {
+  const [count, setCount] = useState(0)
+
+  function handleClick(){
+    setCount(count + 1)  
+    if (count >= 2){
+      setCount(0)
+    }
+  }
   return (
     <div id='feedbackList'>
       <p>Name: {name}</p>
@@ -13,7 +21,21 @@ const FeedbackListCard = ({ name, unit, phone, email, description, dateRequested
       <p>Feedback: {description}</p>
       <p>Date Requested: {dateRequested}</p>
      
-      <span>{status}</span>
+      {
+        count === 1 ?
+          <>
+            <button onClick={handleClick}>In Progress</button>
+          </>
+        :
+        count === 2 ?
+          <>
+            <button onClick={handleClick}>Complete</button>
+          </>
+        :
+        <>
+          <button onClick={handleClick}>Pending</button>
+        </>
+      }  
     </div>
   )
 }
