@@ -19,7 +19,7 @@ function App() {
         <Navigation />
         <Routes>
           <Route path="/" element={<DashboardPage />} />
-          <Route path="/tenants" element={<TenantsPage />} /> 
+          <Route path="/tenants" element={<TenantsPage />} />
           <Route path="/maintenance" element={<MaintenancePage />} />
         </Routes>
       </AuthProvider>
