@@ -6,62 +6,63 @@ const FeedbackForm = ({ maintanenceFeedback, setMaintanenceFeedback, tenants }) 
 
   const maintainenceURL = "http://localhost:3000/maintenanceRequests"
 
-function handleSubmit(event) {
-  event.preventDefault()
+  function handleSubmit(event) {
+    event.preventDefault()
 
-  const existingFeedback = maintanenceFeedback.find(
-    (feedback) => feedback.tenantId === parseInt(selectedTenantId)
-  )
+    const existingFeedback = maintanenceFeedback.find(
+      (feedback) => feedback.tenantId === parseInt(selectedTenantId)
+    )
 
-  const feedbackData = {
-    tenantId: parseInt(selectedTenantId),
-    description,
-    dateRequested: new Date().toISOString()
+    const feedbackData = {
+      tenantId: parseInt(selectedTenantId),
+      description,
+      dateRequested: new Date().toISOString()
+    }
+
+    if (existingFeedback) {
+      fetch(`${maintainenceURL}/${existingFeedback.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({ description: feedbackData.description })
+      })
+        .then(res => res.json())
+        .then(updatedFeedback => {
+          alert("Your feedback has been updated.")
+          const updatedList = maintanenceFeedback.map((fb) =>
+            fb.id === updatedFeedback.id ? updatedFeedback : fb
+          )
+          setMaintanenceFeedback(updatedList)
+          resetForm()
+        })
+        .catch(err => {
+          alert("Could not update your feedback.")
+          console.error("PATCH error:", err.message)
+        })
+    } else {
+      fetch(maintainenceURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(feedbackData)
+      })
+        .then(res => res.json())
+        .then(newFeedback => {
+          alert("Your feedback has been sent. Expect response soon.")
+          setMaintanenceFeedback([...maintanenceFeedback, newFeedback])
+          resetForm()
+        })
+        .catch(err => {
+          alert("Sorry, your response could not be sent.")
+          console.error("POST error:", err.message)
+        })
+    }
   }
 
-  if (existingFeedback) {
-    fetch(`${maintainenceURL}/${existingFeedback.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({ description: feedbackData.description })
-    })
-      .then(res => res.json())
-      .then(updatedFeedback => {
-        alert("Your feedback has been updated.")
-        const updatedList = maintanenceFeedback.map((fb) =>
-          fb.id === updatedFeedback.id ? updatedFeedback : fb
-        )
-        setMaintanenceFeedback(updatedList)
-        resetForm()
-      })
-      .catch(err => {
-        alert("Could not update your feedback.")
-        console.error("PATCH error:", err.message)
-      })
-  } else {
-    fetch(maintainenceURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify(feedbackData)
-    })
-      .then(res => res.json())
-      .then(newFeedback => {
-        alert("Your feedback has been sent. Expect response soon.")
-        setMaintanenceFeedback([...maintanenceFeedback, newFeedback])
-        resetForm()
-      })
-      .catch(err => {
-        alert("Sorry, your response could not be sent.")
-        console.error("POST error:", err.message)
-      })
-  }
-}
   useEffect(() => {
     const existingFeedback = maintanenceFeedback.find(
       (fb) => fb.tenantId === parseInt(selectedTenantId)
@@ -72,7 +73,6 @@ function handleSubmit(event) {
       setDescription("")
     }
   }, [selectedTenantId, maintanenceFeedback])
-
 
   function resetForm() {
     setDescription("")
@@ -116,4 +116,4 @@ function handleSubmit(event) {
   )
 }
 
-export default FeedbackForm
+export default FeedbackForm;
