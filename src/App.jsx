@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import React, { useState, useEffect, useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
@@ -108,4 +108,4 @@ function App() {
 }
 
 export default App
->>>>>>> aef5dfe1cafca1a683c09677db5ed7e67da4c98a
+
