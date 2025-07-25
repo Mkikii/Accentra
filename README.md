@@ -1,63 +1,49 @@
 <<<<<<< HEAD
-Accentra - Tenant and Maintenance Management
+Accentra is a simple and responsive web application built with React to manage property-related tasks such as maintenance requests and feedback submission. The system offers role-based dashboards for tenants and landlords.
+## 🚀 Features
 
-This is a React Single Page Application (SPA) built with Vite for managing tenants and their maintenance requests.
-Project Requirements (Phase 2)
+- 🔐 Role-based login (Tenant & Landlord)
+- 🏠 Tenant Dashboard
+- 🧰 Submit and track maintenance requests
+- 💬 Send feedback to landlord
+- 🧑‍💼 Landlord Dashboard to manage maintenance and view feedback
+- 🎨 Responsive UI with Bootstrap 5
+- ☁️ Axios-based API integration
 
-    React SPA
+## 📁 Folder Structure
+🔧 Backend Setup (Required)
 
-    At least 5 components
+The frontend assumes a backend API running at http://localhost:4000.
+Example Endpoints Expected:
 
-    At least 3 client-side routes (Dashboard, Tenants, Maintenance)
+    GET /api/maintenance
 
-    JSON Server for mock API
+    POST /api/maintenance
 
-    GET, POST, PATCH HTTP methods
+    PATCH /api/maintenance/:id
 
-    Controlled forms (AddTenantForm, AddMaintenanceForm)
+    GET /api/feedback
 
-    Basic styling
+    POST /api/feedback
 
-Getting Started
-1. Clone the Repository
+    Ensure your backend server supports CORS and is running on the correct port.
 
-git clone https://github.com/Mkikii/Accentra.git
-cd Accentra
+🧪 Tech Stack
 
-2. Install Dependencies
+    Frontend: React
 
-npm install
+    Routing: React Router DOM
 
-3. Start JSON Server (in a separate terminal)
+    HTTP Requests: Axios
 
-npm run server
+    UI Framework: Bootstrap 5
 
-4. Start the React Development Server (in another terminal)
+    Backend (assumed): Node.js
+📌 Notes
 
-npm run dev
+    The background image has been removed from all pages for a cleaner user experience.
 
-Team Members
+    Login determines route redirect (/tenant or /landlord) based on role selection.
 
-    Maureen Karimi (Scrum Master)
-
-    Jesse Kangethe
-
-    Martha Shantel
-
-    Ashley Mararo
-
-Built with React, Vite, and JSON Server.
-=======
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+    Tenant can view their submitted requests; landlord can update their statuses.
 >>>>>>> aef5dfe1cafca1a683c09677db5ed7e67da4c98a
