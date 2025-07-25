@@ -1,12 +1,49 @@
-# React + Vite
+<<<<<<< HEAD
+Accentra is a simple and responsive web application built with React to manage property-related tasks such as maintenance requests and feedback submission. The system offers role-based dashboards for tenants and landlords.
+## 🚀 Features
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- 🔐 Role-based login (Tenant & Landlord)
+- 🏠 Tenant Dashboard
+- 🧰 Submit and track maintenance requests
+- 💬 Send feedback to landlord
+- 🧑‍💼 Landlord Dashboard to manage maintenance and view feedback
+- 🎨 Responsive UI with Bootstrap 5
+- ☁️ Axios-based API integration
 
-Currently, two official plugins are available:
+## 📁 Folder Structure
+🔧 Backend Setup (Required)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The frontend assumes a backend API running at http://localhost:4000.
+Example Endpoints Expected:
 
-## Expanding the ESLint configuration
+    GET /api/maintenance
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+    POST /api/maintenance
+
+    PATCH /api/maintenance/:id
+
+    GET /api/feedback
+
+    POST /api/feedback
+
+    Ensure your backend server supports CORS and is running on the correct port.
+
+🧪 Tech Stack
+
+    Frontend: React
+
+    Routing: React Router DOM
+
+    HTTP Requests: Axios
+
+    UI Framework: Bootstrap 5
+
+    Backend (assumed): Node.js
+📌 Notes
+
+    The background image has been removed from all pages for a cleaner user experience.
+
+    Login determines route redirect (/tenant or /landlord) based on role selection.
+
+    Tenant can view their submitted requests; landlord can update their statuses.
+>>>>>>> aef5dfe1cafca1a683c09677db5ed7e67da4c98a
