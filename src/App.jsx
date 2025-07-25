@@ -1,29 +1,23 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
+import { Routes, Route } from 'react-router-dom';
 
-import Header from '../Header';
-import Navigation from '../navigation';
-
-import DashboardPage from './pages/DashboardPage';
-import MaintenancePage from './pages/MaintenancePage';
-import TenantsPage from './pages/TenantsPage';
-
-import './App.css';
+import Login from './pages/Login.jsx';
+import TenantDashboard from './pages/TenantDashboard.jsx';
+import LandlordDashboard from './pages/LandlordDashboard.jsx';
+import FeedbackForm from './pages/FeedbackForm.jsx';
+import MaintenanceForm from './pages/MaintenanceForm.jsx';
 
 function App() {
   return (
-    <Router>
-      <AuthProvider>
-        <Header />
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<DashboardPage />} />
-          <Route path="/tenants" element={<TenantsPage />} />
-          <Route path="/maintenance" element={<MaintenancePage />} />
-        </Routes>
-      </AuthProvider>
-    </Router>
+    <div className="min-vh-100">
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/tenant" element={<TenantDashboard />} />
+        <Route path="/landlord" element={<LandlordDashboard />} />
+        <Route path="/feedback" element={<FeedbackForm />} />
+        <Route path="/maintenance" element={<MaintenanceForm />} />
+      </Routes>
+    </div>
   );
 }
 

@@ -1,52 +1,112 @@
-import React, { useState, useContext } from 'react';
-import { AuthContext } from './src/context/AuthContext';
-
-function LoginForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [loginError, setLoginError] = useState('');
-  const { login } = useContext(AuthContext);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoginError('');
-    const success = await login(username, password);
-    if (!success) {
-      setLoginError('Invalid username or password.');
-    } else {
-      console.log('Login successful, should redirect or update UI');
-    }
-  };
-
-  return (
-    <div className="login-form-container">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        {loginError && <p className="error-message">{loginError}</p>}
-        <button type="submit">Login</button>
-      </form>
-    </div>
-  );
+.app-header {
+  background-color: #a73737ff;
+  color: white;
+  padding: 18px 25px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-export default LoginForm;
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.app-title {
+  margin: 0;
+  font-size: 2em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #626465ff;
+}
+
+.user-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-display {
+  font-size: 1.1em;
+  font-weight: 500;
+  color: #bdc3c7;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 8px 15px;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.user-display:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.logout-button {
+  background-color: #c9c7c7ff;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 5px rgba(220, 53, 69, 0.2);
+}
+
+.logout-button:hover {
+  background-color: #ece9eaff;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(127, 122, 122, 0.3);
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 15px 20px;
+  }
+  .app-title {
+    font-size: 1.6em;
+  }
+  .user-controls {
+    gap: 10px;
+  }
+  .user-display {
+    font-size: 0.95em;
+    padding: 6px 12px;
+  }
+  .logout-button {
+    padding: 6px 12px;
+    font-size: 0.8em;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 12px 15px;
+  }
+  .header-content {
+    flex-direction: column;
+  }
+  .app-title {
+    margin-bottom: 10px;
+    font-size: 1.4em;
+  }
+  .user-controls {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  .user-display, .logout-button {
+    width: 90%;
+    font-size: 0.85em;
+    padding: 5px 10px;
+  }
+}
