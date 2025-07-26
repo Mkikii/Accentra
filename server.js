@@ -9,7 +9,7 @@ const db = new sqlite3.Database('./accentra.db')
 app.use(cors())
 app.use(bodyParser.json())
 
-// Create tables if they don't exist
+
 db.serialize(() => {
   db.run(`CREATE TABLE IF NOT EXISTS maintenance (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -25,7 +25,7 @@ db.serialize(() => {
   )`)
 })
 
-// Maintenance routes
+
 app.get('/api/maintenance', (req, res) => {
   db.all('SELECT * FROM maintenance', (err, rows) => {
     res.json(rows)
@@ -48,7 +48,7 @@ app.put('/api/maintenance/:id', (req, res) => {
     })
 })
 
-// Feedback routes
+
 app.get('/api/feedback', (req, res) => {
   db.all('SELECT * FROM feedback', (err, rows) => {
     res.json(rows)
@@ -63,7 +63,7 @@ app.post('/api/feedback', (req, res) => {
     })
 })
 
-// Start server
+
 app.listen(4000, () => {
   console.log('Server running on http://localhost:4000')
 })
