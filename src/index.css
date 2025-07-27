@@ -9,6 +9,7 @@ body {
   flex-direction: column;
   background-color: #050210ff;
   color: var(--text-dark, #c10c36ff);
+  
 }
 
 .accentra-text,
@@ -16,6 +17,7 @@ h1.ACCENTRA {
   color: var(--accent-color, #350520ff) !important;
   font-weight: bold;
   text-shadow: 1px 1px 2px rgba(23, 22, 22, 0.2);
+  justify content : center;
 }
 
 @media (max-width: 768px) {

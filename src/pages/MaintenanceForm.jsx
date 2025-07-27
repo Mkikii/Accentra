@@ -1,44 +1,73 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function MaintenanceForm() {
-  const [requests, setRequests] = useState([])
-  const [issue, setIssue] = useState('plumbing')
-  const [desc, setDesc] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [requests, setRequests] = useState([]);
+  const [issue, setIssue] = useState('plumbing');
+  const [description, setDescription] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [formMessage, setFormMessage] = useState('');
 
   const fetchRequests = async () => {
-    try {
-      const res = await axios.get('http://localhost:4000/api/maintenance')
-      setRequests(res.data)
-    } catch (error) {
-      console.error('Error fetching requests:', error)
+    const loggedInUser = JSON.parse(localStorage.getItem('user'));
+    if (!loggedInUser || loggedInUser.role !== 'tenant') {
+      console.error('User not logged in or not a tenant. Cannot fetch requests.');
+      setRequests([]);
+      return;
     }
-  }
+
+    try {
+      const res = await axios.get('http://localhost:4000/api/maintenance');
+      const tenantRequests = res.data.filter(req => req.tenant_id === loggedInUser.id);
+      setRequests(tenantRequests);
+    } catch (error) {
+      console.error('Error fetching requests:', error);
+      setFormMessage('Error loading your requests.');
+    }
+  };
 
   const handleSubmit = async () => {
-    if (!desc.trim()) return
-    
-    setLoading(true)
+    if (!description.trim()) {
+      setFormMessage('Please provide a description for the issue.');
+      return;
+    }
+
+    const loggedInUser = JSON.parse(localStorage.getItem('user'));
+    if (!loggedInUser || loggedInUser.role !== 'tenant') {
+      setFormMessage('You must be logged in as a tenant to submit a request.');
+      return;
+    }
+    const tenant_id = loggedInUser.id;
+
+    setLoading(true);
+    setFormMessage('');
+
     try {
       await axios.post('http://localhost:4000/api/maintenance', {
-        issue,
-        description: desc,
-        status: 'open'
-      })
-      setDesc('')
-      fetchRequests()
+        tenant_id: tenant_id,
+        issue: issue,
+        description: description,
+        status: 'Pending'
+      });
+      setDescription('');
+      setFormMessage('Maintenance request submitted successfully!');
+      fetchRequests();
     } catch (error) {
-      console.error('Error submitting request:', error)
+      console.error('Error submitting request:', error);
+      if (error.response && error.response.data && error.response.data.message) {
+        setFormMessage(`Error: ${error.response.data.message}`);
+      } else {
+        setFormMessage('Failed to submit request. Please try again.');
+      }
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchRequests()
-  }, [])
+    fetchRequests();
+  }, []);
 
   return (
     <div className="container py-5">
@@ -56,10 +85,16 @@ function MaintenanceForm() {
               <h3>Submit New Request</h3>
             </div>
             <div className="card-body">
+              {formMessage && (
+                <div className={`alert ${formMessage.includes('successfully') ? 'alert-success' : 'alert-danger'}`} role="alert">
+                  {formMessage}
+                </div>
+              )}
               <div className="mb-3">
-                <label className="form-label">Issue Type</label>
-                <select 
-                  className="form-select" 
+                <label htmlFor="issueType" className="form-label">Issue Type</label>
+                <select
+                  id="issueType"
+                  className="form-select"
                   value={issue}
                   onChange={(e) => setIssue(e.target.value)}
                 >
@@ -70,22 +105,23 @@ function MaintenanceForm() {
                   <option value="other">Other</option>
                 </select>
               </div>
-              
+
               <div className="mb-3">
-                <label className="form-label">Description</label>
-                <textarea 
-                  className="form-control" 
+                <label htmlFor="description" className="form-label">Description</label>
+                <textarea
+                  id="description"
+                  className="form-control"
                   rows="4"
-                  value={desc} 
-                  onChange={(e) => setDesc(e.target.value)} 
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                   placeholder="Please describe the issue in detail..."
                 />
               </div>
-              
-              <button 
-                className="btn btn-primary" 
+
+              <button
+                className="btn btn-primary"
                 onClick={handleSubmit}
-                disabled={loading || !desc.trim()}
+                disabled={loading || !description.trim()}
               >
                 {loading ? 'Submitting...' : 'Submit Request'}
               </button>
@@ -109,8 +145,9 @@ function MaintenanceForm() {
                           <p className="mb-1">{r.description}</p>
                         </div>
                         <span className={`badge ${
-                          r.status === 'open' ? 'bg-warning' : 
-                          r.status === 'in-progress' ? 'bg-info' : 'bg-success'
+                          r.status === 'Pending' ? 'bg-warning' :
+                          r.status === 'In Progress' ? 'bg-info' :
+                          'bg-success'
                         }`}>
                           {r.status}
                         </span>
@@ -124,7 +161,7 @@ function MaintenanceForm() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default MaintenanceForm
+export default MaintenanceForm;

@@ -12,12 +12,12 @@ export default function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    
+
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-    
+
     try {
       await signUp(email, password);
       navigate('/dashboard');
@@ -34,10 +34,10 @@ export default function Register() {
           <h1>Join Accentra</h1>
           <p>Your personalized property management journey begins here</p>
         </div>
-        
+
         <form onSubmit={handleRegister}>
           {error && <div className="auth-error">{error}</div>}
-          
+
           <div className="form-group">
             <label>Email</label>
             <input
@@ -48,7 +48,7 @@ export default function Register() {
               required
             />
           </div>
-          
+
           <div className="form-group">
             <label>Password</label>
             <input
@@ -60,7 +60,7 @@ export default function Register() {
               minLength="6"
             />
           </div>
-          
+
           <div className="form-group">
             <label>Confirm Password</label>
             <input
@@ -71,12 +71,12 @@ export default function Register() {
               required
             />
           </div>
-          
+
           <button type="submit" className="auth-btn">
             Create Account
           </button>
         </form>
-        
+
         <div className="auth-footer">
           <p>Already have an account? <a href="/login">Login</a></p>
         </div>
@@ -84,7 +84,6 @@ export default function Register() {
     </div>
   );
 }
-
 
 function mapFirebaseError(code) {
   switch(code) {

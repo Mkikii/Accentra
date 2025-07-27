@@ -10,7 +10,6 @@ function FeedbackForm() {
 
   const handleFeedbackSubmit = async () => {
     if (!feedbackName.trim() || !feedbackMsg.trim()) return
-
     setLoading(true)
     try {
       await axios.post('http://localhost:4000/api/feedback', {
@@ -38,13 +37,11 @@ function FeedbackForm() {
               ← Back to Dashboard
             </Link>
           </div>
-
           {success && (
             <div className="alert alert-success" role="alert">
               Thank you! Your feedback has been submitted successfully.
             </div>
           )}
-
           <div className="card">
             <div className="card-header">
               <h3>We'd love to hear from you!</h3>
@@ -61,7 +58,6 @@ function FeedbackForm() {
                   onChange={(e) => setFeedbackName(e.target.value)}
                 />
               </div>
-
               <div className="mb-3">
                 <label htmlFor="feedback" className="form-label">Your Feedback</label>
                 <textarea
@@ -73,9 +69,8 @@ function FeedbackForm() {
                   onChange={(e) => setFeedbackMsg(e.target.value)}
                 />
               </div>
-
-              <button 
-                className="btn btn-primary w-100" 
+              <button
+                className="btn btn-primary w-100"
                 onClick={handleFeedbackSubmit}
                 disabled={loading || !feedbackName.trim() || !feedbackMsg.trim()}
               >
