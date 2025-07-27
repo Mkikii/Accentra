@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 
 function FeedbackForm() {
   const [feedbackName, setFeedbackName] = useState('')
@@ -12,20 +11,29 @@ function FeedbackForm() {
     if (!feedbackName.trim() || !feedbackMsg.trim()) return
 
     setLoading(true)
-    try {
-      await axios.post('http://localhost:4000/api/feedback', {
+    
+   
+    setTimeout(() => {
+      
+      const existingFeedback = JSON.parse(localStorage.getItem('feedback') || '[]')
+      const newFeedback = {
+        id: Date.now(),
         name: feedbackName,
-        message: feedbackMsg
-      })
+        message: feedbackMsg,
+        createdAt: new Date().toISOString()
+      }
+      
+      existingFeedback.push(newFeedback)
+      localStorage.setItem('feedback', JSON.stringify(existingFeedback))
+      
       setFeedbackName('')
       setFeedbackMsg('')
       setSuccess(true)
-      setTimeout(() => setSuccess(false), 3000)
-    } catch (error) {
-      console.error('Error submitting feedback:', error)
-    } finally {
       setLoading(false)
-    }
+      
+      // Hide success message after 3 seconds
+      setTimeout(() => setSuccess(false), 3000)
+    }, 1000)
   }
 
   return (
@@ -40,48 +48,77 @@ function FeedbackForm() {
           </div>
 
           {success && (
-            <div className="alert alert-success" role="alert">
-              Thank you! Your feedback has been submitted successfully.
+            <div className="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Thank you!</strong> Your feedback has been submitted successfully.
+              <button type="button" className="btn-close" onClick={() => setSuccess(false)}></button>
             </div>
           )}
 
-          <div className="card">
-            <div className="card-header">
-              <h3>We'd love to hear from you!</h3>
+          <div className="card shadow">
+            <div className="card-header bg-primary text-white text-center">
+              <h3 className="mb-0">We'd love to hear from you! 💬</h3>
             </div>
-            <div className="card-body">
+            <div className="card-body p-4">
               <div className="mb-3">
-                <label htmlFor="name" className="form-label">Your Name</label>
+                <label htmlFor="name" className="form-label fw-semibold">
+                  Your Name <span className="text-danger">*</span>
+                </label>
                 <input
                   id="name"
                   type="text"
-                  className="form-control"
+                  className="form-control form-control-lg"
                   placeholder="Enter your name"
                   value={feedbackName}
                   onChange={(e) => setFeedbackName(e.target.value)}
                 />
               </div>
 
-              <div className="mb-3">
-                <label htmlFor="feedback" className="form-label">Your Feedback</label>
+              <div className="mb-4">
+                <label htmlFor="feedback" className="form-label fw-semibold">
+                  Your Feedback <span className="text-danger">*</span>
+                </label>
                 <textarea
                   id="feedback"
                   className="form-control"
-                  rows="5"
+                  rows="6"
                   placeholder="Share your thoughts, suggestions, or concerns..."
                   value={feedbackMsg}
                   onChange={(e) => setFeedbackMsg(e.target.value)}
                 />
+                <div className="form-text">
+                  {feedbackMsg.length}/500 characters
+                </div>
               </div>
 
               <button 
-                className="btn btn-primary w-100" 
+                className="btn btn-primary btn-lg w-100" 
                 onClick={handleFeedbackSubmit}
                 disabled={loading || !feedbackName.trim() || !feedbackMsg.trim()}
               >
-                {loading ? 'Sending...' : 'Send Feedback'}
+                {loading ? (
+                  <>
+                    <span className="spinner-border spinner-border-sm me-2" role="status"></span>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    📤 Send Feedback
+                  </>
+                )}
               </button>
+              
+              {(!feedbackName.trim() || !feedbackMsg.trim()) && (
+                <small className="text-muted d-block text-center mt-2">
+                  Please fill in both fields to submit your feedback
+                </small>
+              )}
             </div>
+          </div>
+          
+          <div className="text-center mt-4">
+            <small className="text-muted">
+              Your feedback helps us improve our services. Thank you for taking the time to share your thoughts!
+            </small>
           </div>
         </div>
       </div>
