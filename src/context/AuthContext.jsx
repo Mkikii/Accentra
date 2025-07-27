@@ -26,6 +26,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password, role) => {
     try {
+      //Atempt to authenticate user with backend, sending username, password and selected role.
       const response = await axios.post('http://localhost:4000/api/login', {
         username,
         password,
