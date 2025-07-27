@@ -1,23 +1,22 @@
-
+/* Body Styles */
 body {
-  font-family: sans-serif ,inter;
+  font-family: "Inter", sans-serif;
   font-size: 16px;
   line-height: 1.6;
   margin: 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #050210ff;
-  color: var(--text-dark, #c10c36ff);
-  
+  background-color: #050210;
+  color: var(--text-dark, #c10c36);
 }
 
 .accentra-text,
 h1.ACCENTRA {
-  color: var(--accent-color, #350520ff) !important;
+  color: var(--accent-color, #350520) !important;
   font-weight: bold;
   text-shadow: 1px 1px 2px rgba(23, 22, 22, 0.2);
-  justify content : center;
+  text-align: center;
 }
 
 @media (max-width: 768px) {
