@@ -1,49 +1,88 @@
-<<<<<<< HEAD
-Accentra is a simple and responsive web application built with React to manage property-related tasks such as maintenance requests and feedback submission. The system offers role-based dashboards for tenants and landlords.
-## 🚀 Features
+Accentra - Property Management System
+Project Description
 
-- 🔐 Role-based login (Tenant & Landlord)
-- 🏠 Tenant Dashboard
-- 🧰 Submit and track maintenance requests
-- 💬 Send feedback to landlord
-- 🧑‍💼 Landlord Dashboard to manage maintenance and view feedback
-- 🎨 Responsive UI with Bootstrap 5
-- ☁️ Axios-based API integration
+Accentra is a web application designed to streamline property management tasks for both tenants and landlords. It provides functionalities for tenants to submit maintenance requests and feedback, and for landlords to manage tenant information, view requests, and monitor feedback.
+Key Features
 
-## 📁 Folder Structure
-🔧 Backend Setup (Required)
+    Tenant and Landlord login roles.
 
-The frontend assumes a backend API running at http://localhost:4000.
-Example Endpoints Expected:
+    Tenant Dashboard for submitting maintenance requests and feedback.
 
-    GET /api/maintenance
+    Landlord Dashboard for viewing maintenance requests and tenant feedback.
 
-    POST /api/maintenance
+    Secure user authentication.
 
-    PATCH /api/maintenance/:id
+    Responsive design (using Bootstrap).
 
-    GET /api/feedback
+Technologies Used
 
-    POST /api/feedback
+    Frontend: React (Vite), React Router DOM, Axios, Bootstrap
 
-    Ensure your backend server supports CORS and is running on the correct port.
+    Backend: Node.js, Express.js, SQLite3, CORS
 
-🧪 Tech Stack
+    Database: SQLite (file-based)
 
-    Frontend: React
+    Package Manager: npm
 
-    Routing: React Router DOM
+    Version Control: Git / GitHub
 
-    HTTP Requests: Axios
+Getting Started (Local Development)
+Prerequisites
 
-    UI Framework: Bootstrap 5
+    Node.js (LTS version recommended)
 
-    Backend (assumed): Node.js
-📌 Notes
+    npm (comes with Node.js)
 
-    The background image has been removed from all pages for a cleaner user experience.
+    Git
 
-    Login determines route redirect (/tenant or /landlord) based on role selection.
+Installation
 
-    Tenant can view their submitted requests; landlord can update their statuses.
->>>>>>> aef5dfe1cafca1a683c09677db5ed7e67da4c98a
+    Clone the repository:
+
+    git clone https://github.com/Mkikii/Accentra.git
+
+    Navigate to the project directory:
+
+    cd Accentra
+
+    Install dependencies:
+
+    npm install
+
+Running the Application
+
+    Start the Backend Server:
+    Open a new terminal tab/window and run:
+
+    npm start
+
+    The server will run on http://localhost:4000.
+
+    Start the Frontend Development Server:
+    Open another terminal tab/window and run:
+
+    npm run dev
+
+    The frontend will run on http://localhost:5173 (or a similar port).
+
+    Access the Application:
+    Open your web browser and go to http://localhost:5173/.
+
+Deployment (Frontend)
+
+The frontend of this application is deployed on Vercel:
+https://accentra-sigma.vercel.app/
+(Note: For full functionality, the backend server must be running locally or deployed separately.)
+Team Members
+
+    Maureen Karimi - Scrum Master & Developer, Dashboard, Navigation, app.js, package.json, db.json, server.js components, git pull and merge branches, worked on main and deployment to ensure code is running
+
+    Jesse Kangethe - Maintenance component creation
+
+    Martha Shantelle - Header and styling component
+
+    Ashley Mararo - Tenants component
+
+License
+
+This project is licensed under the MIT License.
