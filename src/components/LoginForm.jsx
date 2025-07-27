@@ -5,22 +5,22 @@ const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('tenant');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Already present, good!
   const [error, setError] = useState('');
   const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsLoading(true); // Set loading to true when submission starts
     setError('');
 
     const success = await login(username, password, role);
-    
+
     if (!success) {
       setError('Invalid credentials. Please try again.');
     }
-    
-    setIsLoading(false);
+
+    setIsLoading(false); // Set loading to false when submission ends
   };
 
   return (
@@ -30,7 +30,7 @@ const LoginForm = () => {
           {error}
         </div>
       )}
-      
+
       <div className="mb-3">
         <label htmlFor="username" className="form-label">Username</label>
         <input
@@ -39,6 +39,7 @@ const LoginForm = () => {
           id="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          placeholder="Enter your username" // <--- ADDED HERE
           required
         />
       </div>
@@ -51,6 +52,7 @@ const LoginForm = () => {
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          placeholder="Enter your password" // <--- ADDED HERE
           required
         />
       </div>
@@ -71,9 +73,9 @@ const LoginForm = () => {
       <button
         type="submit"
         className="btn btn-primary w-100"
-        disabled={isLoading}
+        disabled={isLoading} // Button disabled when isLoading is true
       >
-        {isLoading ? 'Logging in...' : 'Login'}
+        {isLoading ? 'Logging in...' : 'Login'} {/* Button text changes based on isLoading */}
       </button>
     </form>
   );
