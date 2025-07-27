@@ -3,6 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from "./context/AuthContext.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Navbar from "./components/Navbar.jsx";
+
+//Import page components for routing
 import Login from "./pages/Login.jsx";
 import TenantDashboard from "./pages/TenantDashboard.jsx";
 import LandlordDashboard from "./pages/LandlordDashboard.jsx";
