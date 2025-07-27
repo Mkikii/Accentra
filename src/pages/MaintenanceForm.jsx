@@ -64,10 +64,11 @@ function MaintenanceForm() {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
+//Fetch tenant's maintenance requests when component mounts or currentUser.id changes.
+  //This ensures the list is updated if a different tenant logs in.
+useEffect(() => {
     fetchRequests();
-  }, []);
+  }, [currentUser?.id]);
 
   return (
     <div className="container py-5">
