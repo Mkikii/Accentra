@@ -1,60 +1,57 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { AuthProvider } from "./context/AuthContext.jsx";
-import ProtectedRoute from "./components/ProtectedRoute.jsx";
-import Navbar from "./components/Navbar.jsx";
+import { Routes, Route, BrowserRouter as Router, Link } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext.js';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+import Navbar from './components/Navbar.jsx';
 
-//Import page components for routing
-import Login from "./pages/Login.jsx";
-import TenantDashboard from "./pages/TenantDashboard.jsx";
-import LandlordDashboard from "./pages/LandlordDashboard.jsx";
-import MaintenanceForm from "./pages/MaintenanceForm.jsx";
-import FeedbackForm from "./pages/FeedbackForm.jsx";
-
+import Login from './pages/Login.jsx';
+import LoginForm from './components/LoginForm.jsx';
+import TenantDashboard from './pages/TenantDashboard.jsx';
+import LandlordDashboard from './pages/LandlordDashboard.jsx';
+import FeedbackForm from './pages/FeedbackForm.jsx';
+import MaintenanceForm from './pages/MaintenanceForm.jsx';
 
 function App() {
   return (
-    <AuthProvider>
-      <div className="App">
+    <div className="min-vh-100">
+      <Router>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<div className="container py-5"><h1>Welcome to Accentra</h1><p>Please login to access your dashboard.</p></div>} />
-          <Route path="/login" element={<Login />} />
-          <Route 
-            path="/tenant" 
-            element={
-              <ProtectedRoute>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+
+            <Route path="/tenant" element={
+              <ProtectedRoute allowedRoles={['tenant']}>
                 <TenantDashboard />
               </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/landlord" 
-            element={
-              <ProtectedRoute>
+            } />
+            <Route path="/landlord" element={
+              <ProtectedRoute allowedRoles={['landlord']}>
                 <LandlordDashboard />
               </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/maintenance" 
-            element={
-              <ProtectedRoute>
+            } />
+            <Route path="/maintenance" element={
+              <ProtectedRoute allowedRoles={['tenant']}>
                 <MaintenanceForm />
               </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/feedback" 
-            element={
-              <ProtectedRoute>
+            } />
+            <Route path="/feedback" element={
+              <ProtectedRoute allowedRoles={['tenant']}>
                 <FeedbackForm />
               </ProtectedRoute>
-            } 
-          />
-        </Routes>
-      </div>
-    </AuthProvider>
+            } />
+            <Route path="/unauthorized" element={
+              <div className="container py-5 text-center">
+                <h2>Unauthorized Access</h2>
+                <p>You do not have permission to view this page.</p>
+                <Link to="/" className="btn btn-primary">Go to Login</Link>
+              </div>
+            } />
+          </Routes>
+        </AuthProvider>
+      </Router>
+    </div>
   );
 }
 
