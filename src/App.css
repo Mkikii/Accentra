@@ -1,12 +1,78 @@
-*{
-  margin: 0;
-  padding: 0;
-}
-h1{
-  font-size: 60px;
-}
-#header{
-  background-color:rgba(171, 171, 171, 0.077);
+.App {
   text-align: center;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
+}
+
+/* Responsive fixes */
+.container {
+  max-width: 100%;
+  padding: 0 15px;
+}
+
+.card {
+  margin-bottom: 1rem;
+}
+
+.btn-group {
+  flex-wrap: wrap;
+}
+
+.btn-group .btn {
+  margin: 2px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 10px;
+  }
+  
+  .d-flex.justify-content-between {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .btn-group .btn {
+    width: 100%;
+    margin: 2px 0;
+  }
+  
+  .col-md-8, .col-md-4, .col-md-6 {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Card improvements */
+.card-body {
+  padding: 1.5rem;
+}
+
+.badge {
+  font-size: 0.8em;
+}
+
+/* Button improvements */
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
 }

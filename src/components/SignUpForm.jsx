@@ -1,53 +1,43 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import API_URL from '../api';
 
-const SignUpForm = () => {
+function SignUpForm() {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
     email: '',
     role: 'tenant'
   });
-  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setMessage('');
+    setError('');
 
     try {
-      const response = await fetch(`${API_URL}/users`, {
+      const response = await fetch('http://localhost:4000/users', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
           id: Date.now().toString()
-        }),
+        })
       });
 
       if (response.ok) {
-        setMessage('Account created successfully!');
-        setTimeout(() => navigate('/login'), 2000);
+        alert('Account created successfully!');
+        navigate('/login');
       } else {
-        setMessage('Failed to create account. Please try again.');
+        setError('Failed to create account');
       }
     } catch (err) {
-      setMessage('Error creating account. Please try again.');
+      setError('Signup failed');
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
   };
 
   return (
@@ -56,56 +46,47 @@ const SignUpForm = () => {
         <div className="col-md-6">
           <div className="card">
             <div className="card-header">
-              <h3>Sign Up for Accentra</h3>
+              <h3>Sign Up - Accentra</h3>
             </div>
             <div className="card-body">
-              {message && (
-                <div className={`alert ${message.includes('successfully') ? 'alert-success' : 'alert-danger'}`}>
-                  {message}
-                </div>
-              )}
+              {error && <div className="alert alert-danger">{error}</div>}
 
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                  <label className="form-label">Username</label>
                   <input
                     type="text"
                     className="form-control"
-                    name="username"
+                    placeholder="Username"
                     value={formData.username}
-                    onChange={handleChange}
+                    onChange={(e) => setFormData({...formData, username: e.target.value})}
                     required
                   />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label">Email</label>
                   <input
                     type="email"
                     className="form-control"
-                    name="email"
+                    placeholder="Email"
                     value={formData.email}
-                    onChange={handleChange}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
                     required
                   />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label">Password</label>
                   <input
                     type="password"
                     className="form-control"
-                    name="password"
+                    placeholder="Password"
                     value={formData.password}
-                    onChange={handleChange}
+                    onChange={(e) => setFormData({...formData, password: e.target.value})}
                     required
                   />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label">Role</label>
                   <select
                     className="form-control"
-                    name="role"
                     value={formData.role}
-                    onChange={handleChange}
+                    onChange={(e) => setFormData({...formData, role: e.target.value})}
                   >
                     <option value="tenant">Tenant</option>
                     <option value="landlord">Landlord</option>
@@ -125,6 +106,6 @@ const SignUpForm = () => {
       </div>
     </div>
   );
-};
+}
 
 export default SignUpForm;
