@@ -1,77 +1,53 @@
 # Accentra - Property Management System
 
-## 🚀 Live Demo
+## Author
 
-- **Frontend:** https://accentra-sigma.vercel.app/
-- **Backend:** https://accentra-backend.onrender.com/
+Maureen Karimi
 
-## 🎯 FOR GRADERS - QUICK ACCESS
+## Description
 
-### Demo Login Credentials (Available on Live Demo)
+Accentra is a property management system designed to help property owners and managers keep track of their properties and tenants. The system allows users to view and manage tenant information, submit maintenance requests, and view property details.
 
-**Tenant Account:**
+## Project Setup Instructions
 
-- Username: `kikii_tenant`
-- Password: `password123`
+1. Clone the repository: `git clone https://github.com/Mkikii/Accentra.git`
+2. Install dependencies: `npm install`
+3. Start the application: `npm start`
 
-**Landlord Account:**
+## Live Site
 
-- Username: `landlord_john`
-- Password: `adminpassword`
-
-### Option 1: Live Demo (Recommended)
-
-1. Visit: https://accentra-sigma.vercel.app/
-2. Use credentials above to login
-3. Test all features (signup, login, dashboards)
-
-### Option 2: Local Setup (Backup)
-
-```bash
-git clone https://github.com/Mkikii/Accentra.git
-cd Accentra
-npm install
-npm start     # Terminal 1 (backend on port 4000)
-npm run dev   # Terminal 2 (frontend on port 5173)
-```
-
-## Features Demonstrated
-
-- **Login System:** Use provided credentials
-- **Signup System:** Create new accounts
-- **Tenant Dashboard:** Submit maintenance requests, view status
-- **Landlord Dashboard:** Manage requests, view tenant info
-- **Responsive Design:** Works on all devices
+https://accentra-sigma.vercel.app/
 
 ## Technologies Used
 
-- **Frontend:** React (Vite), React Router DOM, Bootstrap
-- **Backend:** json-server (RESTful API)
-- **Deployment:** Vercel (Frontend), Render (Backend)
+* Frontend: React (Vite), React Router DOM, Bootstrap
+* Backend: json-server (RESTful API)
+* Deployment: Vercel (Frontend), Render (Backend)
 
-## Grading Criteria ✅
+## Features
 
-- ✅ **5+ React components** (LoginForm, SignUpForm, TenantDashboard, LandlordDashboard, App)
-- ✅ **3+ client-side routes** (/, /login, /signup, /dashboard)
-- ✅ **Single page application** (React SPA)
-- ✅ **RESTful API with GET/POST** (json-server with CORS)
-- ✅ **Login credentials provided** (See above)
-- ✅ **Signup functionality** (Working on live demo)
-- ✅ **Professional README** (This document)
-- ✅ **Live deployment** (Both frontend and backend deployed)
+* Login System: Use provided credentials to log in
+* Signup System: Create new accounts
+* Tenant Dashboard: Submit maintenance requests, view status
+* Landlord Dashboard: Manage requests, view tenant info
+* Responsive Design: Works on all devices
 
 ## API Endpoints
 
-- `GET /users` - User authentication
-- `POST /users` - User registration
-- `GET /maintenanceRequests` - Fetch requests
-- `POST /maintenanceRequests` - Submit requests
-- `POST /feedback` - Submit feedback
+* `GET /users` - User authentication
+* `POST /users` - User registration
+* `GET /maintenanceRequests` - Fetch requests
+* `POST /maintenanceRequests` - Submit requests
+* `POST /feedback` - Submit feedback
 
 ## License
 
 MIT License
 
----
+Copyright 2023 Maureen Karimi
 
-**For grading:** Both live demo and local setup work perfectly. Live demo is recommended for convenience.
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
