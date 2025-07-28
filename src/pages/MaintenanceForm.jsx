@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import API_URL from "../api"; // Adjust the path if needed
+import API_URL from "../api";
 
 function MaintenanceForm() {
   const [requests, setRequests] = useState([]);
