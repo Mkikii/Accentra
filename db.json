@@ -1,60 +1,21 @@
 {
-  "tenants": [
+  "users": [
     {
-      "id": 1,
-      "name": "kikii Molly",
-      "unit": "A101",
-      "phone": "555-1111",
-      "email": "kikii@example.com",
-      "userId": 101
+      "id": "1",
+      "username": "kikii_tenant",
+      "password": "password123",
+      "email": "tenant@example.com",
+      "role": "tenant"
     },
     {
-      "id": 2,
-      "name": "najma Boru",
-      "unit": "B202",
-      "phone": "555-2222",
-      "email": "najma@example.com",
-      "userId": 102
-    },
-    {
-      "name": "Cactus Jack",
-      "unit": "S301",
-      "phone": "0756483928",
-      "email": "Cactusjack@outlook.com",
-      "userId": 504,
-      "id": 3
+      "id": "2", 
+      "username": "landlord_john",
+      "password": "adminpassword",
+      "email": "landlord@example.com",
+      "role": "landlord"
     }
   ],
-  "maintenanceRequests": [
-    {
-      "id": 1,
-      "tenantId": 1,
-      "description": "Leaky faucet in kitchen.",
-      "dateRequested": "2023-01-15",
-      "status": 2
-    },
-    {
-      "tenantId": 2,
-      "description": "Broken AC in room",
-      "dateRequested": "2025-07-24T21:16:44.250Z",
-      "id": 2,
-      "status": 1
-    },
-    {
-      "tenantId": 3,
-      "description": "Meter box does not display well!",
-      "dateRequested": "2025-07-27T11:44:04.636Z",
-      "id": 3,
-      "status": 2
-    }
-  ],
-  "landlords": [
-    {
-      "id": 1,
-      "name": "James Mwangi",
-      "phone": "0712345678",
-      "email": "james.mwangi@example.com",
-      "userId": "landlord001"
-    }
-  ]
+  "properties": [],
+  "maintenance": [],
+  "feedback": []
 }

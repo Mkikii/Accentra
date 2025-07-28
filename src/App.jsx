@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import SignUpForm from './components/SignUpForm';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
-import TenantDashboard from './components/TenantDashboard';
+import SignUpForm from './components/SignUpForm';
+import TenantDashboard from './pages/TenantDashboard';
+import LandlordDashboard from './pages/LandlordDashboard';
+import './App.css';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -14,9 +16,9 @@ function App() {
     }
   }, []);
 
-  const handleLogin = (user) => {
-    setUser(user);
-    localStorage.setItem('user', JSON.stringify(user));
+  const handleLogin = (userData) => {
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
   };
 
   const handleLogout = () => {
@@ -25,13 +27,35 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/signup" component={SignUpForm} />
-        <Route path="/login" render={() => <LoginForm handleLogin={handleLogin} />} />
-        <Route path="/tenant-dashboard" render={() => <TenantDashboard user={user} handleLogout={handleLogout} />} />
-      </Switch>
-    </BrowserRouter>
+    <div className="App">
+      <Routes>
+        <Route 
+          path="/" 
+          element={user ? <Navigate to="/dashboard" /> : <LoginForm onLogin={handleLogin} />} 
+        />
+        <Route 
+          path="/login" 
+          element={user ? <Navigate to="/dashboard" /> : <LoginForm onLogin={handleLogin} />} 
+        />
+        <Route 
+          path="/signup" 
+          element={user ? <Navigate to="/dashboard" /> : <SignUpForm />} 
+        />
+        <Route 
+          path="/dashboard" 
+          element={
+            user ? (
+              user.role === 'landlord' ? 
+                <LandlordDashboard user={user} onLogout={handleLogout} /> : 
+                <TenantDashboard user={user} onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          } 
+        />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </div>
   );
 }
 
