@@ -1,4 +1,29 @@
 {
+  "users": [
+    {
+      "id": 101,
+      "username": "kikii_tenant",
+      "password": "password123",
+      "role": "tenant",
+      "tenantId": 1,
+      "email": "kikii@example.com"
+    },
+    {
+      "id": 102,
+      "username": "najma_tenant",
+      "password": "password123",
+      "role": "tenant",
+      "tenantId": 2,
+      "email": "najma@example.com"
+    },
+    {
+      "id": 201,
+      "username": "landlord_john",
+      "password": "adminpassword",
+      "role": "landlord",
+      "email": "landlord@example.com"
+    }
+  ],
   "tenants": [
     {
       "id": 1,
@@ -23,41 +48,38 @@
     {
       "id": 1,
       "tenantId": 1,
+      "issue": "plumbing",
       "description": "Leaky faucet in kitchen.",
-      "dateRequested": "2023-01-15",
+      "createdAt": "2023-01-15T00:00:00.000Z",
       "status": "Pending"
     },
     {
-      "tenantId": 2,
-      "description": "Broken AC in room",
-      "dateRequested": "2025-07-24T21:16:44.250Z",
       "id": 2,
+      "tenantId": 2,
+      "issue": "heating",
+      "description": "Broken AC in room",
+      "createdAt": "2025-07-24T21:16:44.250Z",
       "status": "In Progress"
     }
   ],
-  "users": [
+  "feedback": [
     {
-      "id": 101,
-      "username": "kikii_tenant",
-      "password": "password123",
-      "role": "tenant",
-      "tenantId": 1,
-      "email": "kikii@example.com"
+      "id": 1,
+      "name": "Jesse Kangethe",
+      "message": "Great response time on the last maintenance request!",
+      "createdAt": "2025-07-28T08:00:00.000Z"
     },
     {
-      "id": 102,
-      "username": "najma_tenant",
-      "password": "password123",
-      "role": "tenant",
-      "tenantId": 2,
-      "email": "najma@example.com"
+      "id": 2,
+      "name": "Ashley Mararo",
+      "message": "Very satisfied with the apartment maintenance.",
+      "createdAt": "2025-07-27T08:00:00.000Z"
     },
     {
-      "id": 201,
-      "username": "landlord_john",
-      "password": "adminpassword",
-      "role": "landlord",
-      "email": "landlord@example.com"
+      "id": 3,
+      "name": "Shantel Martha",
+      "message": "Could you please check the heating system soon?",
+      "createdAt": "2025-07-26T08:00:00.000Z"
     }
   ]
 }

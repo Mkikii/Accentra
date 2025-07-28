@@ -1,30 +1,26 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.jsx';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const LoginForm = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('tenant');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("tenant");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError('');
-
+    setError("");
     const result = await login(username, password, role);
-    
-    if (result.success) {
-      // Navigate based on role
-      navigate(`/${result.role}`);
+    if (result) {
+      navigate(`/${role}`);
     } else {
-      setError(result.message || 'Invalid credentials. Please try again.');
+      setError("Invalid credentials. Please try again.");
     }
-    
     setIsLoading(false);
   };
 
@@ -35,9 +31,10 @@ const LoginForm = () => {
           {error}
         </div>
       )}
-      
       <div className="mb-3">
-        <label htmlFor="username" className="form-label">Username</label>
+        <label htmlFor="username" className="form-label">
+          Username
+        </label>
         <input
           type="text"
           className="form-control"
@@ -47,9 +44,10 @@ const LoginForm = () => {
           required
         />
       </div>
-      
       <div className="mb-3">
-        <label htmlFor="password" className="form-label">Password</label>
+        <label htmlFor="password" className="form-label">
+          Password
+        </label>
         <input
           type="password"
           className="form-control"
@@ -59,26 +57,26 @@ const LoginForm = () => {
           required
         />
       </div>
-      
       <div className="mb-3">
-        <label htmlFor="role" className="form-label">Role</label>
+        <label htmlFor="role" className="form-label">
+          Role
+        </label>
         <select
           className="form-select"
           id="role"
           value={role}
           onChange={(e) => setRole(e.target.value)}
         >
-          <option value="tenant">🏠 Tenant</option>
-          <option value="landlord">🏢 Landlord</option>
+          <option value="tenant">Tenant</option>
+          <option value="landlord">Landlord</option>
         </select>
       </div>
-      
       <button
         type="submit"
         className="btn btn-primary w-100"
         disabled={isLoading}
       >
-        {isLoading ? 'Logging in...' : 'Login'}
+        {isLoading ? "Logging in..." : "Login"}
       </button>
     </form>
   );

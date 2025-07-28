@@ -1,47 +1,42 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import API_URL from "../api"; // Adjust the path if needed
 
 function MaintenanceForm() {
-  const [requests, setRequests] = useState([])
-  const [issue, setIssue] = useState('plumbing')
-  const [desc, setDesc] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [requests, setRequests] = useState([]);
+  const [issue, setIssue] = useState("plumbing");
+  const [desc, setDesc] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  // Load requests from localStorage
   useEffect(() => {
-    const savedRequests = localStorage.getItem('maintenanceRequests')
-    if (savedRequests) {
-      setRequests(JSON.parse(savedRequests))
-    }
-  }, [])
+    axios
+      .get(`${API_URL}/maintenanceRequests`)
+      .then((res) => setRequests(res.data))
+      .catch(() => setRequests([]));
+  }, []);
 
   const handleSubmit = async () => {
-    if (!desc.trim()) return
-    
-    setLoading(true)
-    
-    // Simulate API delay
-    setTimeout(() => {
+    if (!desc.trim()) return;
+    setLoading(true);
+    try {
       const newRequest = {
-        id: Date.now(),
         issue,
         description: desc,
-        status: 'open',
-        createdAt: new Date().toISOString()
-      }
-      
-      const updatedRequests = [...requests, newRequest]
-      setRequests(updatedRequests)
-      
-      // Save to localStorage
-      localStorage.setItem('maintenanceRequests', JSON.stringify(updatedRequests))
-      
-      setDesc('')
-      setLoading(false)
-      
-      alert('Request submitted successfully!')
-    }, 1000)
-  }
+        status: "open",
+        createdAt: new Date().toISOString(),
+      };
+      await axios.post(`${API_URL}/maintenanceRequests`, newRequest);
+      const res = await axios.get(`${API_URL}/maintenanceRequests`);
+      setRequests(res.data);
+      setDesc("");
+      setLoading(false);
+      alert("Request submitted successfully!");
+    } catch {
+      setLoading(false);
+      alert("Error submitting request");
+    }
+  };
 
   return (
     <div className="container py-5">
@@ -53,7 +48,6 @@ function MaintenanceForm() {
               ← Back to Dashboard
             </Link>
           </div>
-
           <div className="card mb-4">
             <div className="card-header bg-primary text-white">
               <h3 className="mb-0">Submit New Request</h3>
@@ -61,47 +55,37 @@ function MaintenanceForm() {
             <div className="card-body">
               <div className="mb-3">
                 <label className="form-label fw-semibold">Issue Type</label>
-                <select 
-                  className="form-select" 
+                <select
+                  className="form-select"
                   value={issue}
                   onChange={(e) => setIssue(e.target.value)}
                 >
-                  <option value="plumbing">🔧 Plumbing</option>
-                  <option value="electrical">⚡ Electrical</option>
-                  <option value="heating">🌡️ Heating/AC</option>
-                  <option value="appliance">🏠 Appliance</option>
-                  <option value="other">🔨 Other</option>
+                  <option value="plumbing">Plumbing</option>
+                  <option value="electrical">Electrical</option>
+                  <option value="heating">Heating/AC</option>
+                  <option value="appliance">Appliance</option>
+                  <option value="other">Other</option>
                 </select>
               </div>
-              
               <div className="mb-3">
                 <label className="form-label fw-semibold">Description</label>
-                <textarea 
-                  className="form-control" 
+                <textarea
+                  className="form-control"
                   rows="4"
-                  value={desc} 
-                  onChange={(e) => setDesc(e.target.value)} 
+                  value={desc}
+                  onChange={(e) => setDesc(e.target.value)}
                   placeholder="Please describe the issue in detail..."
                 />
               </div>
-              
-              <button 
-                className="btn btn-primary btn-lg w-100" 
+              <button
+                className="btn btn-primary btn-lg w-100"
                 onClick={handleSubmit}
                 disabled={loading || !desc.trim()}
               >
-                {loading ? (
-                  <>
-                    <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-                    Submitting...
-                  </>
-                ) : (
-                  'Submit Request'
-                )}
+                {loading ? "Submitting..." : "Submit Request"}
               </button>
             </div>
           </div>
-
           <div className="card">
             <div className="card-header bg-info text-white">
               <h3 className="mb-0">My Requests</h3>
@@ -120,10 +104,15 @@ function MaintenanceForm() {
                         <div className="flex-grow-1">
                           <div className="d-flex align-items-center mb-2">
                             <h6 className="mb-0 text-capitalize me-2">{r.issue}</h6>
-                            <span className={`badge ${
-                              r.status === 'open' ? 'bg-warning text-dark' : 
-                              r.status === 'in-progress' ? 'bg-info' : 'bg-success'
-                            }`}>
+                            <span
+                              className={`badge ${
+                                r.status === "open"
+                                  ? "bg-warning text-dark"
+                                  : r.status === "in-progress"
+                                  ? "bg-info"
+                                  : "bg-success"
+                              }`}
+                            >
                               {r.status}
                             </span>
                           </div>
@@ -142,7 +131,7 @@ function MaintenanceForm() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default MaintenanceForm
+export default MaintenanceForm;

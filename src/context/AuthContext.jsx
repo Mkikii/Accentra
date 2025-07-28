@@ -1,12 +1,11 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { createContext, useContext, useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import API_URL from "../api";
 
 const AuthContext = createContext(null);
 
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -15,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = localStorage.getItem("user");
     if (storedUser) {
       const user = JSON.parse(storedUser);
       setCurrentUser(user);
@@ -26,32 +25,29 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password, role) => {
     try {
-      const response = await axios.post('http://localhost:4000/api/login', {
+      const response = await axios.post(`${API_URL}/api/login`, {
         username,
         password,
         role,
       });
 
-      if (response.status === 200 && response.data.message === 'Login successful') {
+      if (response.status === 200 && response.data.message === "Login successful") {
         const user = response.data.user;
         setCurrentUser(user);
         setProfile({ role: user.role, id: user.id });
-        localStorage.setItem('user', JSON.stringify(user));
-
-        if (user.role === 'tenant') {
-          navigate('/tenant');
-        } else if (user.role === 'landlord') {
-          navigate('/landlord');
+        localStorage.setItem("user", JSON.stringify(user));
+        if (user.role === "tenant") {
+          navigate("/tenant");
+        } else if (user.role === "landlord") {
+          navigate("/landlord");
         } else {
-          navigate('/');
+          navigate("/");
         }
         return true;
       } else {
-        console.error('Login failed:', response.data.message);
         return false;
       }
     } catch (error) {
-      console.error('Error during login:', error.response ? error.response.data : error.message);
       return false;
     }
   };
@@ -59,18 +55,12 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setCurrentUser(null);
     setProfile(null);
-    localStorage.removeItem('user');
-    navigate('/');
+    localStorage.removeItem("user");
+    navigate("/");
   };
 
   const signup = async (email, password, initialProfileData) => {
-    console.warn("Signup function in AuthContext is a placeholder. Implement custom backend registration if needed.");
-    try {
-      return false;
-    } catch (error) {
-      console.error("Signup error:", error);
-      return false;
-    }
+    return false;
   };
 
   const authValue = {

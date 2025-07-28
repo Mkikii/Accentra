@@ -1,13 +1,12 @@
-import React from 'react';
-import { Routes, Route, BrowserRouter as Router, Link } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext.jsx';
-import ProtectedRoute from './components/ProtectedRoute.jsx';
-import Navbar from './components/Navbar.jsx';
-import Login from './pages/Login.jsx';
-import TenantDashboard from './pages/TenantDashboard.jsx';
-import LandlordDashboard from './pages/LandlordDashboard.jsx';
-import FeedbackForm from './pages/FeedbackForm.jsx';
-import MaintenanceForm from './pages/MaintenanceForm.jsx';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Navbar from "./components/Navbar";
+import Login from "./pages/Login";
+import TenantDashboard from "./pages/TenantDashboard";
+import LandlordDashboard from "./pages/LandlordDashboard";
+import FeedbackForm from "./pages/FeedbackForm";
+import MaintenanceForm from "./pages/MaintenanceForm";
 
 function App() {
   return (
@@ -18,47 +17,49 @@ function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/login" element={<Login />} />
-            <Route 
-              path="/tenant" 
+            <Route
+              path="/tenant"
               element={
                 <ProtectedRoute>
                   <TenantDashboard />
                 </ProtectedRoute>
-              } 
+              }
             />
-            <Route 
-              path="/landlord" 
+            <Route
+              path="/landlord"
               element={
                 <ProtectedRoute>
                   <LandlordDashboard />
                 </ProtectedRoute>
-              } 
+              }
             />
-            <Route 
-              path="/maintenance" 
+            <Route
+              path="/maintenance"
               element={
                 <ProtectedRoute>
                   <MaintenanceForm />
                 </ProtectedRoute>
-              } 
+              }
             />
-            <Route 
-              path="/feedback" 
+            <Route
+              path="/feedback"
               element={
                 <ProtectedRoute>
                   <FeedbackForm />
                 </ProtectedRoute>
-              } 
+              }
             />
-            <Route 
-              path="/unauthorized" 
+            <Route
+              path="/unauthorized"
               element={
                 <div className="container py-5 text-center">
                   <h2>Unauthorized Access</h2>
                   <p>You do not have permission to view this page.</p>
-                  <Link to="/" className="btn btn-primary">Go to Login</Link>
+                  <Link to="/" className="btn btn-primary">
+                    Go to Login
+                  </Link>
                 </div>
-              } 
+              }
             />
           </Routes>
         </AuthProvider>
