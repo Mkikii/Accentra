@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const LoginForm = ({ handleLogin }) => {
+const SignUpForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -9,11 +9,11 @@ const LoginForm = ({ handleLogin }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('https://accentra-api.herokuapp.com/api/login', {
+      const response = await axios.post('https://accentra-api.herokuapp.com/api/signup', {
         username,
         password,
       });
-      handleLogin(response.data);
+      console.log(response.data);
     } catch (error) {
       setError(error.message);
     }
@@ -34,9 +34,9 @@ const LoginForm = ({ handleLogin }) => {
         placeholder="Password"
       />
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <button type="submit">Log in</button>
+      <button type="submit">Sign up</button>
     </form>
   );
 };
 
-export default LoginForm;
+export default SignUpForm;
