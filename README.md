@@ -1,153 +1,159 @@
-🎯 Accentra - Property Management System
-
-Author: Maureen Karimi
-Team Members:
-
-    Maureen Karimi (Scrum Master & Full-Stack Developer)
-
-    Jesse Kangethe (Maintenance Component Developer)
-
-    Martha Shantelle (UI/Styling & Header Design)
-
-    Ashley Mararo (Tenants Component Developer)
-
-📝 Project Description
-
-Accentra is a responsive and user-friendly web application built to streamline property management for both landlords and tenants. It enables:
-
-    Tenants to submit maintenance requests and provide feedback
-
-    Landlords to manage requests and tenant data in real time
-
-    Secure authentication and role-based dashboards
-
-Designed with a polished UI using React + Bootstrap, it follows best practices for component architecture, routing, and clean code organization.
-🚀 Key Features
-
-    🔐 Secure authentication with tenant/landlord roles
-
-    🧰 Maintenance Request Form for tenants
-
-    💬 Feedback Submission from tenants
-
-    📋 Tenant Management for landlords
-
-    📊 Landlord Dashboard for reviewing submissions
-
-    📱 Responsive design using Bootstrap
-
-    🧭 Client-side routing with react-router-dom
-
-    🌐 RESTful API powered by json-server
-
-⚙️ Technologies Used
-Category Tools & Libraries
-Frontend React (Vite), React Router DOM, Axios, Bootstrap
-Backend json-server (for RESTful API), Express (optional)
-Database SQLite (optional), db.json (local API)
-Others Git, GitHub, Vercel (Deployment)
-🛠️ Getting Started (Local Development)
-✅ Prerequisites
-
-    Node.js (LTS version)
-
-    npm
-
-    Git
-
-📦 Installation
-
-git clone https://github.com/Mkikii/Accentra.git
-cd Accentra
-npm install
-
-▶️ Running the Application
-
-1. Start the Backend (json-server):
-
-npm install -g json-server
-json-server --watch db.json --port 4000
-
-Or, if you're using a custom Express server:
-
-npm start
-
-    Backend URL: http://localhost:4000
-
-2. Start the Frontend (Vite):
-
-npm run dev
-
-    Frontend URL: http://localhost:5173
-
-🔐 Demo Login Credentials
-
-Tenant
-
-    Username: kikii_tenant
-
-    Password: password123
-
-Landlord
-
-    Username: landlord_john
-
-    Password: adminpassword
-
-🌐 Deployment
-
-    Frontend Hosted On Vercel:
-    🔗 https://accentra-sigma.vercel.app/
-
-🧩 How to Make It Work After Deployment
-
-    Deploy the backend (json-server or Express) to services like Render, Railway, or Cyclic.
-
-    Update frontend API_BASE_URL in src/api.js or .env to point to deployed backend.
-
-    Ensure CORS is properly enabled on the backend.
-
-    Test communication between deployed frontend & backend.
-
-    Validate all forms and protected routes work correctly.
-
-🧠 Project Structure Highlights
-
-    Fully SPA-based (Single Page App) using React and index.html
-
-    Utilizes 5+ reusable components (Navbar, Login, TenantDashboard, MaintenanceForm, FeedbackForm)
-
-    Built with clean and modular file structure
-
-    Adheres to DRY principles for logic reuse
-
-📈 Git Commit Practice
-
-    20+ Git commits with descriptive messages for each key feature or fix
-
-    Team followed structured branching and pull/merge process via GitHub
-
-👥 Team & Contributions
-Maureen Karimi
-
-    Scrum Master & Full-Stack Developer
-
-    Developed dashboard, routing, App.js, API integration, GitHub workflows
-
-    Handled deployments (Vercel), QA testing, and project management
-
-Jesse Kangethe
-
-    Created the Maintenance Request feature
-
-Martha Shantelle
-
-    Designed the Header and managed UI styling
-
-Ashley Mararo
-
-    Developed the Tenants listing component
-
-📄 License
+# 🏠 Accentra - Property Management System
+
+**Author:** Maureen Karimi  
+**Team Members:** Maureen Karimi, Jesse Kangethe, Martha Shantelle, Ashley Mararo
+
+## 📝 Project Description
+
+Accentra is a modern, responsive single-page application (SPA) built with React that streamlines property management for both landlords and tenants. The application provides secure authentication, role-based dashboards, and comprehensive property management features.
+
+### Key Features
+- 🔐 Secure user authentication with role-based access
+- 🏠 Property listing and management
+- 🔧 Maintenance request system
+- 💬 Feedback submission system
+- 📊 Dashboard for landlords and tenants
+- 📱 Fully responsive design
+- 🌐 RESTful API integration
+
+## 🚀 Technologies Used
+
+- **Frontend:** React 18, React Router DOM, Bootstrap 5, Custom CSS
+- **Backend:** JSON Server (RESTful API)
+- **Build Tool:** Vite
+- **HTTP Client:** Axios
+- **Deployment:** Vercel (Frontend), Render (Backend)
+
+## 📦 Project Setup Instructions
+
+### Prerequisites
+- Node.js (v16 or higher)
+- npm or yarn package manager
+
+### Local Development Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Mkikii/Accentra.git
+   cd Accentra
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Start the JSON Server (Backend):**
+   ```bash
+   npm run server
+   ```
+   The API will be available at `http://localhost:4000`
+
+4. **Start the React Development Server:**
+   ```bash
+   npm run dev
+   ```
+   The application will be available at `http://localhost:5173`
+
+### Demo Credentials
+- **Tenant:** 
+  - Email: kikii_tenant@example.com
+  - Password: password123
+- **Landlord:** 
+  - Email: landlord_john@example.com
+  - Password: adminpassword
+
+## 🌐 Live Deployment
+
+- **Frontend (Vercel):** [https://accentra-sigma.vercel.app/](https://accentra-sigma.vercel.app/)
+- **Backend API (Render):** [https://accentra-backend.onrender.com](https://accentra-backend.onrender.com)
+
+## 🏗️ Project Structure
+
+The application follows React best practices with component-based architecture:
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── Navbar.jsx      # Navigation component
+│   ├── Header.jsx      # Dashboard header
+│   ├── Footer.jsx      # Footer component
+│   ├── LoginForm.jsx   # Login form component
+│   └── SignUpForm.jsx  # Registration form component
+├── pages/              # Page components
+│   ├── HomePage.jsx    # Landing page
+│   ├── Login.jsx       # Login page
+│   ├── TenantDashboard.jsx    # Tenant dashboard
+│   ├── LandlordDashboard.jsx  # Landlord dashboard
+│   ├── MaintenanceForm.jsx    # Maintenance requests
+│   └── FeedbackForm.jsx       # Feedback submission
+├── context/            # React Context for state management
+│   └── AuthContext.jsx # Authentication context
+├── api/               # API integration
+│   └── api.js         # API functions
+└── App.jsx           # Main application component
+```
+
+## 🔧 API Endpoints
+
+The JSON Server provides the following RESTful endpoints:
+
+- `GET /users` - Fetch all users
+- `POST /users` - Create new user
+- `GET /maintenanceRequests` - Fetch maintenance requests
+- `POST /maintenanceRequests` - Create maintenance request
+- `GET /feedback` - Fetch feedback
+- `POST /feedback` - Submit feedback
+
+## 🎨 Styling
+
+The application uses a combination of:
+- Bootstrap 5 for responsive layout and components
+- Custom CSS for unique styling and dark theme
+- Morphism design elements for modern UI
+
+## 📱 Responsive Design
+
+The application is fully responsive and works seamlessly across:
+- Desktop computers
+- Tablets
+- Mobile devices
+
+## 🔒 Authentication & Authorization
+
+- Role-based authentication (Tenant/Landlord)
+- Protected routes based on user roles
+- Secure session management
+- Form validation and error handling
+
+## 🚀 Deployment Instructions
+
+### Frontend (Vercel)
+1. Connect your GitHub repository to Vercel
+2. Set environment variables in Vercel dashboard
+3. Deploy automatically on push to main branch
+
+### Backend (Render)
+1. Create a new Web Service on Render
+2. Connect your GitHub repository
+3. Set build and start commands
+4. Deploy the JSON Server
+
+## 📄 License
 
 MIT License © 2025 Maureen Karimi & Accentra Team
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## 📞 Support
+
+For support or questions, please contact the development team or create an issue on GitHub.
+
+---
+
+**Note:** This project was developed as part of Phase 2 requirements, demonstrating proficiency in React, component architecture, routing, API integration, and modern web development practices.

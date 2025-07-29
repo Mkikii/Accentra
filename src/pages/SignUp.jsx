@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 
-const Login = () => {
+const SignUp = () => {
   const [formData, setFormData] = useState({
+    username: '',
     email: '',
     password: '',
+    confirmPassword: '',
     role: 'tenant'
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   
-  const { login } = useAuth();
+  const { signup } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -26,32 +29,39 @@ const Login = () => {
     setError('');
     setLoading(true);
 
+    // Validation
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match');
+      setLoading(false);
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setError('Password must be at least 6 characters long');
+      setLoading(false);
+      return;
+    }
+
     try {
-      const success = await login(formData.email, formData.password, formData.role);
-      
-      if (!success) {
-        setError('Invalid credentials or role mismatch. Please check your email, password, and selected role.');
+      const success = await signup(
+        formData.username,
+        formData.password,
+        formData.email,
+        formData.role
+      );
+
+      if (success) {
+        setSuccess(true);
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000);
+      } else {
+        setError('Registration failed. Username or email might already exist.');
       }
     } catch (err) {
-      setError('Login failed. Please try again.');
+      setError('Registration failed. Please try again.');
     } finally {
       setLoading(false);
-    }
-  };
-
-  const fillDemoCredentials = (role) => {
-    if (role === 'tenant') {
-      setFormData({
-        email: 'kikii_tenant@example.com',
-        password: 'password123',
-        role: 'tenant'
-      });
-    } else {
-      setFormData({
-        email: 'landlord_john@example.com',
-        password: 'adminpassword',
-        role: 'landlord'
-      });
     }
   };
 
@@ -63,10 +73,10 @@ const Login = () => {
             <div className="custom-card">
               <div className="card-header-custom text-center">
                 <h2 className="mb-0">
-                  <i className="fas fa-sign-in-alt me-2"></i>
-                  Welcome Back
+                  <i className="fas fa-user-plus me-2"></i>
+                  Join Accentra
                 </h2>
-                <p className="mb-0 mt-2 opacity-75">Sign in to your Accentra account</p>
+                <p className="mb-0 mt-2 opacity-75">Create your account today</p>
               </div>
               
               <div className="card-body p-4">
@@ -76,46 +86,31 @@ const Login = () => {
                     {error}
                   </div>
                 )}
-
-                {/* Demo Credentials */}
-                <div className="alert alert-info-custom mb-4">
-                  <h6 className="mb-2">
-                    <i className="fas fa-info-circle me-2"></i>
-                    Demo Credentials
-                  </h6>
-                  <div className="row g-2">
-                    <div className="col-6">
-                      <div className="bg-white p-2 rounded">
-                        <strong className="d-block">Tenant</strong>
-                        <small className="d-block">kikii_tenant@example.com</small>
-                        <small className="d-block">password123</small>
-                        <button 
-                          type="button" 
-                          className="btn btn-sm btn-outline-primary mt-1"
-                          onClick={() => fillDemoCredentials('tenant')}
-                        >
-                          Use Demo
-                        </button>
-                      </div>
-                    </div>
-                    <div className="col-6">
-                      <div className="bg-white p-2 rounded">
-                        <strong className="d-block">Landlord</strong>
-                        <small className="d-block">landlord_john@example.com</small>
-                        <small className="d-block">adminpassword</small>
-                        <button 
-                          type="button" 
-                          className="btn btn-sm btn-outline-primary mt-1"
-                          onClick={() => fillDemoCredentials('landlord')}
-                        >
-                          Use Demo
-                        </button>
-                      </div>
-                    </div>
+                
+                {success && (
+                  <div className="alert alert-success alert-custom">
+                    <i className="fas fa-check-circle me-2"></i>
+                    Account created successfully! Redirecting to login...
                   </div>
-                </div>
+                )}
 
                 <form onSubmit={handleSubmit}>
+                  <div className="mb-3">
+                    <label className="form-label">
+                      <i className="fas fa-user me-2"></i>
+                      Username
+                    </label>
+                    <input
+                      type="text"
+                      name="username"
+                      className="form-control form-control-custom"
+                      value={formData.username}
+                      onChange={handleChange}
+                      placeholder="Choose a username"
+                      required
+                    />
+                  </div>
+
                   <div className="mb-3">
                     <label className="form-label">
                       <i className="fas fa-envelope me-2"></i>
@@ -127,7 +122,7 @@ const Login = () => {
                       className="form-control form-control-custom"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="Enter your email"
+                      placeholder="your@email.com"
                       required
                     />
                   </div>
@@ -143,7 +138,24 @@ const Login = () => {
                       className="form-control form-control-custom"
                       value={formData.password}
                       onChange={handleChange}
-                      placeholder="Enter your password"
+                      placeholder="Create a secure password"
+                      required
+                      minLength="6"
+                    />
+                  </div>
+
+                  <div className="mb-3">
+                    <label className="form-label">
+                      <i className="fas fa-lock me-2"></i>
+                      Confirm Password
+                    </label>
+                    <input
+                      type="password"
+                      name="confirmPassword"
+                      className="form-control form-control-custom"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                      placeholder="Confirm your password"
                       required
                     />
                   </div>
@@ -151,7 +163,7 @@ const Login = () => {
                   <div className="mb-4">
                     <label className="form-label">
                       <i className="fas fa-user-tag me-2"></i>
-                      Login As
+                      Account Type
                     </label>
                     <select
                       name="role"
@@ -173,12 +185,12 @@ const Login = () => {
                     {loading ? (
                       <>
                         <span className="loading-spinner me-2"></span>
-                        Signing In...
+                        Creating Account...
                       </>
                     ) : (
                       <>
-                        <i className="fas fa-sign-in-alt me-2"></i>
-                        Sign In
+                        <i className="fas fa-user-plus me-2"></i>
+                        Create Account
                       </>
                     )}
                   </button>
@@ -186,9 +198,9 @@ const Login = () => {
 
                 <div className="text-center">
                   <p className="mb-0">
-                    Don't have an account?{' '}
-                    <Link to="/signup" className="text-decoration-none">
-                      Create one here
+                    Already have an account?{' '}
+                    <Link to="/login" className="text-decoration-none">
+                      Sign in here
                     </Link>
                   </p>
                 </div>
@@ -201,4 +213,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;

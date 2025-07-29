@@ -2,30 +2,119 @@
   "users": [
     {
       "id": 1,
-      "email": "kikii_tenant",
+      "email": "kikii_tenant@example.com",
       "password": "password123",
-      "role": "tenant"
+      "username": "kikii_tenant",
+      "role": "tenant",
+      "createdAt": "2025-01-27T10:00:00.000Z"
     },
     {
       "id": 2,
-      "email": "landlord_john",
+      "email": "landlord_john@example.com",
       "password": "adminpassword",
-      "role": "landlord"
+      "username": "landlord_john",
+      "role": "landlord",
+      "createdAt": "2025-01-27T10:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "email": "tenant_mary@example.com",
+      "password": "mary123",
+      "username": "tenant_mary",
+      "role": "tenant",
+      "createdAt": "2025-01-27T10:00:00.000Z"
     }
   ],
-  "feedback": [
+  "properties": [
     {
       "id": 1,
-      "userId": 1,
-      "message": "Everything is great!"
+      "name": "Greenview Apartments",
+      "address": "123 Main St",
+      "city": "Nairobi",
+      "state": "Nairobi County",
+      "zipcode": "00100",
+      "price": 100000,
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "squareFeet": 1500,
+      "type": "Apartment",
+      "landlordId": 2,
+      "available": true,
+      "createdAt": "2025-01-27T10:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "Riverside Villas",
+      "address": "456 River Rd",
+      "city": "Nairobi",
+      "state": "Nairobi County",
+      "zipcode": "00200",
+      "price": 250000,
+      "bedrooms": 4,
+      "bathrooms": 3,
+      "squareFeet": 2200,
+      "type": "Townhouse",
+      "landlordId": 2,
+      "available": true,
+      "createdAt": "2025-01-27T10:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "name": "City Centre Lofts",
+      "address": "789 Central Ave",
+      "city": "Nairobi",
+      "state": "Nairobi County",
+      "zipcode": "00100",
+      "price": 80000,
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "squareFeet": 750,
+      "type": "Studio Apartment",
+      "landlordId": 2,
+      "available": false,
+      "createdAt": "2025-01-27T10:00:00.000Z"
     }
   ],
   "maintenanceRequests": [
     {
       "id": 1,
-      "userId": 1,
-      "issue": "Leaking kitchen pipe",
-      "status": "pending"
+      "tenantId": 1,
+      "propertyId": 1,
+      "issue": "plumbing",
+      "description": "Leaking kitchen pipe needs immediate attention",
+      "status": "open",
+      "priority": "high",
+      "createdAt": "2025-01-27T09:00:00.000Z",
+      "updatedAt": "2025-01-27T09:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "tenantId": 3,
+      "propertyId": 2,
+      "issue": "electrical",
+      "description": "Living room lights not working properly",
+      "status": "in-progress",
+      "priority": "medium",
+      "createdAt": "2025-01-26T14:30:00.000Z",
+      "updatedAt": "2025-01-27T08:00:00.000Z"
+    }
+  ],
+  "feedback": [
+    {
+      "id": 1,
+      "tenantId": 1,
+      "name": "Kikii Tenant",
+      "message": "Great service! The maintenance team was very responsive.",
+      "rating": 5,
+      "createdAt": "2025-01-26T16:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "tenantId": 3,
+      "name": "Mary Tenant",
+      "message": "The property management system is very user-friendly.",
+      "rating": 4,
+      "createdAt": "2025-01-25T12:00:00.000Z"
     }
   ]
 }

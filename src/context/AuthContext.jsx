@@ -3,10 +3,16 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext(null);
-const API_BASE_URL = import.meta.env.VITE_API_URL; // Use Vite environment variable
+
+// Use environment variable or fallback to localhost
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
 export const useAuth = () => {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 };
 
 export const AuthProvider = ({ children }) => {
@@ -16,39 +22,84 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
+    // Check for stored user on app load
+    const storedUser = localStorage.getItem('accentra_user');
     if (storedUser) {
-      const user = JSON.parse(storedUser);
-      setCurrentUser(user);
-      setProfile({ role: user.role, id: user.id });
+      try {
+        const user = JSON.parse(storedUser);
+        setCurrentUser(user);
+        setProfile({ role: user.role, id: user.id });
+      } catch (error) {
+        console.error('Error parsing stored user:', error);
+        localStorage.removeItem('accentra_user');
+      }
     }
     setLoadingAuth(false);
   }, []);
 
-  const login = async (username, password, role) => {
+  const login = async (email, password, role) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/users?username=${username}&password=${password}&role=${role}`);
+      // Fetch users and find matching credentials
+      const response = await axios.get(`${API_BASE_URL}/users`);
+      const users = response.data;
+      
+      const user = users.find(u => 
+        u.email === email && 
+        u.password === password && 
+        u.role === role
+      );
 
-      if (response.data.length > 0) {
-        const user = response.data[0];
+      if (user) {
         setCurrentUser(user);
         setProfile({ role: user.role, id: user.id });
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('accentra_user', JSON.stringify(user));
 
+        // Navigate based on role
         if (user.role === 'tenant') {
           navigate('/tenant');
         } else if (user.role === 'landlord') {
           navigate('/landlord');
-        } else {
-          navigate('/');
         }
+        
         return true;
       } else {
-        console.error('Login failed: Invalid credentials or role mismatch');
         return false;
       }
     } catch (error) {
-      console.error('Error during login:', error.response ? error.response.data : error.message);
+      console.error('Login error:', error);
+      return false;
+    }
+  };
+
+  const signup = async (username, password, email, role = 'tenant') => {
+    try {
+      // Check if user already exists
+      const existingUsers = await axios.get(`${API_BASE_URL}/users`);
+      const userExists = existingUsers.data.some(u => 
+        u.email === email || u.username === username
+      );
+
+      if (userExists) {
+        return false;
+      }
+
+      // Create new user
+      const newUser = {
+        username,
+        email,
+        password,
+        role,
+        createdAt: new Date().toISOString()
+      };
+
+      const response = await axios.post(`${API_BASE_URL}/users`, newUser);
+      
+      if (response.status === 201) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error('Signup error:', error);
       return false;
     }
   };
@@ -56,34 +107,8 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setCurrentUser(null);
     setProfile(null);
-    localStorage.removeItem('user');
+    localStorage.removeItem('accentra_user');
     navigate('/');
-  };
-
-  const signup = async (username, password, email, role = 'tenant') => {
-    try {
-      const existingUser = await axios.get(`${API_BASE_URL}/users?username=${username}`);
-      if (existingUser.data.length > 0) {
-        console.error('Signup failed: Username already exists');
-        return false;
-      }
-
-      const response = await axios.post(`${API_BASE_URL}/users`, {
-        username,
-        password,
-        email,
-        role
-      });
-
-      if (response.status === 201) {
-        console.log('User signed up successfully:', response.data);
-        return true;
-      }
-      return false;
-    } catch (error) {
-      console.error('Signup error:', error.response ? error.response.data : error.message);
-      return false;
-    }
   };
 
   const authValue = {
@@ -97,7 +122,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={authValue}>
-      {!loadingAuth && children}
+      {children}
     </AuthContext.Provider>
   );
 };
