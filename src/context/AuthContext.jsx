@@ -1,55 +1,103 @@
-import React, { createContext, useContext, useState } from 'react';
-import API_URL from '../api';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
+const API_BASE_URL = import.meta.env.VITE_API_URL; // Use Vite environment variable
 
 export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within AuthProvider');
-  }
-  return context;
+  return useContext(AuthContext);
 };
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [profile, setProfile] = useState(null);
+  const [loadingAuth, setLoadingAuth] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      setCurrentUser(user);
+      setProfile({ role: user.role, id: user.id });
+    }
+    setLoadingAuth(false);
+  }, []);
 
   const login = async (username, password, role) => {
-    setLoading(true);
     try {
-      const response = await fetch(`${API_URL}/users?username=${username}&password=${password}&role=${role}`);
-      const users = await response.json();
-      
-      if (users.length > 0) {
-        setUser(users[0]);
-        localStorage.setItem('user', JSON.stringify(users[0]));
+      const response = await axios.get(`${API_BASE_URL}/users?username=${username}&password=${password}&role=${role}`);
+
+      if (response.data.length > 0) {
+        const user = response.data[0];
+        setCurrentUser(user);
+        setProfile({ role: user.role, id: user.id });
+        localStorage.setItem('user', JSON.stringify(user));
+
+        if (user.role === 'tenant') {
+          navigate('/tenant');
+        } else if (user.role === 'landlord') {
+          navigate('/landlord');
+        } else {
+          navigate('/');
+        }
         return true;
+      } else {
+        console.error('Login failed: Invalid credentials or role mismatch');
+        return false;
       }
-      return false;
     } catch (error) {
-      console.error('Login error:', error);
+      console.error('Error during login:', error.response ? error.response.data : error.message);
       return false;
-    } finally {
-      setLoading(false);
     }
   };
 
   const logout = () => {
-    setUser(null);
+    setCurrentUser(null);
+    setProfile(null);
     localStorage.removeItem('user');
+    navigate('/');
   };
 
-  const value = {
-    user,
+  const signup = async (username, password, email, role = 'tenant') => {
+    try {
+      const existingUser = await axios.get(`${API_BASE_URL}/users?username=${username}`);
+      if (existingUser.data.length > 0) {
+        console.error('Signup failed: Username already exists');
+        return false;
+      }
+
+      const response = await axios.post(`${API_BASE_URL}/users`, {
+        username,
+        password,
+        email,
+        role
+      });
+
+      if (response.status === 201) {
+        console.log('User signed up successfully:', response.data);
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error('Signup error:', error.response ? error.response.data : error.message);
+      return false;
+    }
+  };
+
+  const authValue = {
+    currentUser,
+    profile,
+    loadingAuth,
     login,
     logout,
-    loading
+    signup,
   };
 
   return (
-    <AuthContext.Provider value={value}>
-      {children}
+    <AuthContext.Provider value={authValue}>
+      {!loadingAuth && children}
     </AuthContext.Provider>
   );
 };

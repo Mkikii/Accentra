@@ -1,34 +1,63 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import HomePage from './pages/HomePage';
-import Login from './pages/Login';
-import SignUpForm from './components/SignUpForm';
-import MaintenanceForm from './pages/MaintenanceForm';
-import LandlordDashboard from './pages/LandlordDashboard';
-import TenantDashboard from './pages/TenantDashboard';
-import Navbar from './components/Navbar';
-import FeedbackForm from './pages/FeedbackForm';
+import { Routes, Route, BrowserRouter as Router, Link } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+import Navbar from './components/Navbar.jsx';
+
+import HomePage from './pages/HomePage.jsx';
+import Login from './pages/Login.jsx';
+import SignUpForm from './components/SignUpForm.jsx';
+import TenantDashboard from './pages/TenantDashboard.jsx';
+import LandlordDashboard from './pages/LandlordDashboard.jsx';
+import MaintenanceForm from './pages/MaintenanceForm.jsx';
+import FeedbackForm from './pages/FeedbackForm.jsx';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-const App = () => {
+function App() {
   return (
-    <AuthProvider>
-      <div className="App">
+    <div className="min-vh-100">
+      <Router>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUpForm />} />
-          <Route path="/maintenance" element={<MaintenanceForm />} />
-          <Route path="/landlord-dashboard" element={<LandlordDashboard />} />
-          <Route path="/tenant-dashboard" element={<TenantDashboard />} />
-          <Route path="/feedback" element={<FeedbackForm />} />
-        </Routes>
-      </div>
-    </AuthProvider>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUpForm />} />
+
+            <Route path="/tenant" element={
+              <ProtectedRoute allowedRoles={['tenant']}>
+                <TenantDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/landlord" element={
+              <ProtectedRoute allowedRoles={['landlord']}>
+                <LandlordDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/maintenance" element={
+              <ProtectedRoute allowedRoles={['tenant']}>
+                <MaintenanceForm />
+              </ProtectedRoute>
+            } />
+            <Route path="/feedback" element={
+              <ProtectedRoute allowedRoles={['tenant']}>
+                <FeedbackForm />
+              </ProtectedRoute>
+            } />
+            <Route path="/unauthorized" element={
+              <div className="container py-5 text-center">
+                <h2>Unauthorized Access</h2>
+                <p>You do not have permission to view this page.</p>
+                <Link to="/" className="btn btn-primary">Go to Login</Link>
+              </div>
+            } />
+          </Routes>
+        </AuthProvider>
+      </Router>
+    </div>
   );
-};
+}
 
 export default App;
