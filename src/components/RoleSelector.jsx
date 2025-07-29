@@ -24,8 +24,6 @@ const RoleSelector = ({ setRole }) => {
         <option value="tenant">Tenant</option>
         <option value="landlord">Landlord</option>
       </select>
-      <p>Example of tenant: kikii Molly , Password: 101 </p>
-      <p>Example of landlord: James Mwangi, Password: landlord001</p>
     </div>
   )
 }

@@ -53,6 +53,7 @@ const LandlordLogin = ({ landlords, setLoggedInLandlord }) => {
 
         <button type="submit" id='LandlordLoginButton'>Login</button>
       </form>
+      <p>Example of landlord: James Mwangi, Password: landlord001</p>
     </div>
   )
 }

@@ -52,6 +52,7 @@ const TenantLogin = ({tenants, setLoggedInTenant}) => {
 
             <button id ="submit" type='submit'>Login</button>
         </form>
+        <p>Example of tenant: kikii Molly , Password: 101 </p>
     </div>
   )
 }
