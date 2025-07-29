@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from 'react'
+import "../../styling/maintananceForm.css"
 
-const FeedbackForm = ({ maintanenceFeedback, setMaintanenceFeedback, tenants }) => {
+const AddMaintanenceForm = ({
+  maintanenceFeedback,
+  setMaintanenceFeedback,
+  setCurrentIndex,
+  loggedInTenant
+}) => {
   const [selectedTenantId, setSelectedTenantId] = useState("")
   const [description, setDescription] = useState("")
 
   const maintainenceURL = "http://localhost:3000/maintenanceRequests"
+
+  useEffect(() => {
+    if (loggedInTenant) {
+      setSelectedTenantId(loggedInTenant.id.toString())
+    }
+  }, [loggedInTenant])
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -19,6 +31,7 @@ const FeedbackForm = ({ maintanenceFeedback, setMaintanenceFeedback, tenants }) 
       dateRequested: new Date().toISOString()
     }
 
+    
     if (existingFeedback) {
       fetch(`${maintainenceURL}/${existingFeedback.id}`, {
         method: "PATCH",
@@ -31,10 +44,20 @@ const FeedbackForm = ({ maintanenceFeedback, setMaintanenceFeedback, tenants }) 
         .then(res => res.json())
         .then(updatedFeedback => {
           alert("Your feedback has been updated.")
-          const updatedList = maintanenceFeedback.map((fb) =>
-            fb.id === updatedFeedback.id ? updatedFeedback : fb
+
+          
+          setMaintanenceFeedback(prev =>
+            prev.map(fb =>
+              fb.id === updatedFeedback.id ? updatedFeedback : fb
+            )
           )
-          setMaintanenceFeedback(updatedList)
+
+          
+          const updatedIndex = maintanenceFeedback.findIndex(
+            fb => fb.id === updatedFeedback.id
+          )
+          setCurrentIndex(updatedIndex)
+
           resetForm()
         })
         .catch(err => {
@@ -42,6 +65,7 @@ const FeedbackForm = ({ maintanenceFeedback, setMaintanenceFeedback, tenants }) 
           console.error("PATCH error:", err.message)
         })
     } else {
+
       fetch(maintainenceURL, {
         method: "POST",
         headers: {
@@ -53,7 +77,11 @@ const FeedbackForm = ({ maintanenceFeedback, setMaintanenceFeedback, tenants }) 
         .then(res => res.json())
         .then(newFeedback => {
           alert("Your feedback has been sent. Expect response soon.")
-          setMaintanenceFeedback([...maintanenceFeedback, newFeedback])
+
+          
+          setMaintanenceFeedback(prev => [...prev, newFeedback])
+          setCurrentIndex(maintanenceFeedback.length)
+
           resetForm()
         })
         .catch(err => {
@@ -80,40 +108,26 @@ const FeedbackForm = ({ maintanenceFeedback, setMaintanenceFeedback, tenants }) 
   }
 
   return (
-    <div>
+    <div id='maintananceFormDiv'>
       <form onSubmit={handleSubmit}>
         <h2>Maintenance Issue Form</h2>
-
-        <label>Tenant</label>
-        <br />
-        <select
-          value={selectedTenantId}
-          onChange={(e) => setSelectedTenantId(e.target.value)}
-          required
-        >
-          <option value="">-- Select Tenant --</option>
-          {tenants.map((tenant) => (
-            <option key={tenant.id} value={tenant.id}>
-              {tenant.name} ({tenant.unit})
-            </option>
-          ))}
-        </select>
+        <p><strong>Tenant:</strong> {loggedInTenant?.name} ({loggedInTenant?.unit})</p>
         <br />
 
-        <label>Description:</label>
+        <label><strong>Description:</strong></label>
         <br />
         <textarea
-          name='description'
+          name="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
         />
         <br />
 
-        <button type='submit'>Submit</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   )
 }
 
-export default FeedbackForm;
+export default AddMaintanenceForm

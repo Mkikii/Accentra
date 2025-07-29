@@ -1,14 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-const StatusButton = () => {
-  const [count, setCount] = useState(0)
-
-  const handleClick = () => {
-    setCount((prevCount) => (prevCount >= 2 ? 0 : prevCount + 1))
-  }
-
+const StatusButton = ({ status, onChange }) => {
   const getStatusLabel = () => {
-    switch (count) {
+    switch (status) {
       case 1:
         return "In Progress"
       case 2:
@@ -16,6 +10,11 @@ const StatusButton = () => {
       default:
         return "Pending"
     }
+  }
+
+  const handleClick = () => {
+    const newStatus = status >= 2 ? 0 : status + 1
+    onChange(newStatus)
   }
 
   return (

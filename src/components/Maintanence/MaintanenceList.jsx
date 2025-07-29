@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import FeedbackForm from './FeedbackForm'
 import StatusButton from './StatusButton'
+import "../../styling/maintananceList.css"
 
-const FeedbackListCard = () => {
+const MaintanenceList = () => {
   const [tenantsArray, setTenantsArray] = useState([])
   const [maintanenceFeedback, setmaintanenceFeedback] = useState([])
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  const maintainenceURL = "http://localhost:3000/maintenanceRequests"
-  const tenantURL = "http://localhost:3000/tenants"
+  const maintainenceURL = "https://accentra1-0-backend.onrender.com/maintenanceRequests"
+  const tenantURL = "https://accentra1-0-backend.onrender.com/tenants"
 
   useEffect(() => {
     fetch(tenantURL)
@@ -71,28 +71,39 @@ const FeedbackListCard = () => {
   }
 
   return (
-    <div>
-      <FeedbackForm
-        tenants={tenantsArray}
-        maintanenceFeedback={maintanenceFeedback}
-        setMaintanenceFeedback={setmaintanenceFeedback}
-      />
-
+    <div id='feedbackList'>
       <h2>Feedback List</h2>
-
       {dataIndex && dataIndex.tenant ? (
-        <div id='feedbackList'>
+        <div id='feedback'>
           <p>Name: {dataIndex.tenant.name}</p>
           <p>Unit: {dataIndex.tenant.unit}</p>
 
-          <h3>Contact:</h3>
           <p>Phone: {dataIndex.tenant.phone}</p>
           <p>Email: {dataIndex.tenant.email}</p>
 
           <p>Feedback: {dataIndex.description}</p>
-          <p>Date Requested: {dataIndex.dateRequested}</p>
+          <p>Date Requested: {new Date(dataIndex.dateRequested).toLocaleDateString()}</p>
 
-          <StatusButton />
+        <StatusButton
+          status={dataIndex.status || 0}
+          onChange={(newStatus) => {
+            fetch(`${maintainenceURL}/${dataIndex.id}`, {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({ status: newStatus })
+            })
+            .then(res => res.json())
+            .then(updated => {
+              const updatedList = maintanenceFeedback.map(fb =>
+                fb.id === updated.id ? updated : fb
+              )
+              setmaintanenceFeedback(updatedList)
+            })
+          }}
+        />
+
         </div>
       ) : (
         <p>No feedback available.</p>
@@ -101,10 +112,10 @@ const FeedbackListCard = () => {
       <div id="buttonSection">
         <button onClick={handlePrevious}>Prev</button>
         <button onClick={handleNext}>Next</button>
-        <button onClick={handleDelete}>Delete</button>
+        <button id='maintananceDelete' onClick={handleDelete}>Delete</button>
       </div>
     </div>
   )
 }
 
-export default FeedbackListCard
+export default MaintanenceList
