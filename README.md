@@ -1,8 +1,10 @@
-Accentra - Property Management System
-Project Description
+# Accentra
+A Property Management System.
 
+## Project Description.
 Accentra is a web application designed to streamline property management tasks for both tenants and landlords. It provides functionalities for tenants to submit maintenance requests and feedback, and for landlords to manage tenant information, view requests, and monitor feedback.
-Key Features
+
+## Key Features
 
     Tenant and Landlord login roles.
 
@@ -12,77 +14,75 @@ Key Features
 
     Secure user authentication.
 
-    Responsive design (using Bootstrap).
+    Responsive design.
 
-Technologies Used
+## Technologies Used
 
-    Frontend: React (Vite), React Router DOM, Axios, Bootstrap
+    Frontend: React (Vite), React Router .
 
-    Backend: Node.js, Express.js, SQLite3, CORS
-
-    Database: SQLite (file-based)
+    Backend: REST API (db.json)
 
     Package Manager: npm
 
     Version Control: Git / GitHub
 
-Getting Started (Local Development)
-Prerequisites
+## Getting Started (Local Development).
 
-    Node.js (LTS version recommended)
+### Prerequisites
+- Node.js (LTS version recommended)
+- npm (comes with Node.js)
+- Git
 
-    npm (comes with Node.js)
+### Installation.
 
-    Git
+1. Clone the repository:
 
-Installation
+``` git clone https://github.com/Mkikii/Accentra.git ```
 
-    Clone the repository:
+2. Navigate to the project directory:
 
-    git clone https://github.com/Mkikii/Accentra.git
+    ```cd Accentra```
 
-    Navigate to the project directory:
+3. Install dependencies:
 
-    cd Accentra
+    ```npm install```
 
-    Install dependencies:
+4. Running the Application.
 
-    npm install
+- Start the Backend Server:
+- Open a new terminal tab/window and run:
 
-Running the Application
+    ```npm start```
 
-    Start the Backend Server:
-    Open a new terminal tab/window and run:
+The server will run on http://localhost:4000.
 
-    npm start
+- Start the Frontend Development Server:
+Open another terminal tab/window and run:
 
-    The server will run on http://localhost:4000.
+```npm run dev```
 
-    Start the Frontend Development Server:
-    Open another terminal tab/window and run:
+The frontend will run on http://localhost:5173 (or a similar port).
 
-    npm run dev
+5. Access the Application:
+Open your web browser and go to http://localhost:5173/.
 
-    The frontend will run on http://localhost:5173 (or a similar port).
+## Deployment (Frontend)
 
-    Access the Application:
-    Open your web browser and go to http://localhost:5173/.
+- The frontend of this application is deployed on Vercel:
 
-Deployment (Frontend)
-
-The frontend of this application is deployed on Vercel:
 https://accentra-sigma.vercel.app/
-(Note: For full functionality, the backend server must be running locally or deployed separately.)
-Team Members
 
-    Maureen Karimi - Scrum Master & Developer, Dashboard, Navigation, app.js, package.json, db.json, server.js components, git pull and merge branches, worked on main and deployment to ensure code is running
+**(Note: For full functionality, the backend server must be running locally or deployed separately.)**
 
-    Jesse Kangethe - Maintenance component creation
+## Team Members:
 
-    Martha Shantelle - Header and styling component
+**Maureen Karimi** - Scrum Master, Author & Developer. Worked on Development, role selection and deployment to ensure code is running.
 
-    Ashley Mararo - Tenants component
+**Jesse Kangethe** - Maintenance information. 
 
-License
+**Martha Shantelle** - Landlord information and styling component.
 
-This project is licensed under the MIT License.
+**Ashley Mararo** - Tenants Information
+
+## License
+- This project is licensed under the MIT License.
