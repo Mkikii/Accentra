@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#landlordLogin{
+    padding: 30px;
+    width: 700px;
+    justify-self: center;
+    background-color: rgba(171, 171, 171, 0.077);
+    margin-top: 30px;
+    border-radius: 15px;
+}
+#landlordLogin form{
+    margin-top: 50px;
+}
+#landlordLogin button{
+    display: block;
+    justify-self: center;
+    margin-top: 30px;
+    width: 150px;
+    height: 45px;
+}
