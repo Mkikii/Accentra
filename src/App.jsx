@@ -1,62 +1,26 @@
+// src/App.jsx
 import React from 'react';
-import { Routes, Route, BrowserRouter as Router, Link } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext.jsx';
-import ProtectedRoute from './components/ProtectedRoute.jsx';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './pages/Login.jsx';
+import HomePage from './pages/HomePage.jsx';
 import Navbar from './components/Navbar.jsx';
 
-import HomePage from './pages/HomePage.jsx';
-import Login from './pages/Login.jsx';
-import SignUpForm from './components/SignUpForm.jsx';
-import TenantDashboard from './pages/TenantDashboard.jsx';
-import LandlordDashboard from './pages/LandlordDashboard.jsx';
-import MaintenanceForm from './pages/MaintenanceForm.jsx';
-import FeedbackForm from './pages/FeedbackForm.jsx';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+console.log("App rendered");
 
 function App() {
   return (
-    <div className="min-vh-100">
-      <Router>
+    <Router>
+      <div className="min-vh-100">
         <Navbar />
-        <AuthProvider>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUpForm />} />
-
-            <Route path="/tenant" element={
-              <ProtectedRoute allowedRoles={['tenant']}>
-                <TenantDashboard />
-              </ProtectedRoute>
-            } />
-            <Route path="/landlord" element={
-              <ProtectedRoute allowedRoles={['landlord']}>
-                <LandlordDashboard />
-              </ProtectedRoute>
-            } />
-            <Route path="/maintenance" element={
-              <ProtectedRoute allowedRoles={['tenant']}>
-                <MaintenanceForm />
-              </ProtectedRoute>
-            } />
-            <Route path="/feedback" element={
-              <ProtectedRoute allowedRoles={['tenant']}>
-                <FeedbackForm />
-              </ProtectedRoute>
-            } />
-            <Route path="/unauthorized" element={
-              <div className="container py-5 text-center">
-                <h2>Unauthorized Access</h2>
-                <p>You do not have permission to view this page.</p>
-                <Link to="/" className="btn btn-primary">Go to Login</Link>
-              </div>
-            } />
-          </Routes>
-        </AuthProvider>
-      </Router>
-    </div>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

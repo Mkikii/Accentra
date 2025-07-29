@@ -2,17 +2,30 @@
   "users": [
     {
       "id": 1,
-      "username": "kikii_tenant",
+      "email": "kikii_tenant",
       "password": "password123",
       "role": "tenant"
     },
     {
       "id": 2,
-      "username": "landlord_john",
+      "email": "landlord_john",
       "password": "adminpassword",
       "role": "landlord"
     }
   ],
-  "maintenanceRequests": [],
-  "feedback": []
+  "feedback": [
+    {
+      "id": 1,
+      "userId": 1,
+      "message": "Everything is great!"
+    }
+  ],
+  "maintenanceRequests": [
+    {
+      "id": 1,
+      "userId": 1,
+      "issue": "Leaking kitchen pipe",
+      "status": "pending"
+    }
+  ]
 }

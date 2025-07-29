@@ -1,167 +1,153 @@
-# Accentra - Property Management System
+🎯 Accentra - Property Management System
 
-**Author:** Maureen Karimi
+Author: Maureen Karimi
+Team Members:
 
-**Team Members:**
+    Maureen Karimi (Scrum Master & Full-Stack Developer)
 
-- Maureen Karimi (Scrum Master & Developer: Dashboard, Navigation, `app.js`, `package.json`, `db.json`, `server.js`, git pull/merge, deployment & QA)
+    Jesse Kangethe (Maintenance Component Developer)
 
-- Jesse Kangethe (Maintenance component creation)
+    Martha Shantelle (UI/Styling & Header Design)
 
-- Martha Shantelle (Header and styling component)
+    Ashley Mararo (Tenants Component Developer)
 
-- Ashley Mararo (Tenants component)
+📝 Project Description
 
----
+Accentra is a responsive and user-friendly web application built to streamline property management for both landlords and tenants. It enables:
 
-## Project Description
+    Tenants to submit maintenance requests and provide feedback
 
-Accentra is a web application designed to streamline property management tasks for both tenants and landlords. It allows tenants to submit maintenance requests and feedback, and landlords to manage tenant information, view all requests, and monitor feedback in real time. The app features secure authentication, easy navigation, and a user-friendly design.
+    Landlords to manage requests and tenant data in real time
 
----
+    Secure authentication and role-based dashboards
 
-## Key Features
+Designed with a polished UI using React + Bootstrap, it follows best practices for component architecture, routing, and clean code organization.
+🚀 Key Features
 
-- **Tenant and Landlord login roles**
+    🔐 Secure authentication with tenant/landlord roles
 
-- **Tenant Dashboard:** Submit maintenance requests and feedback
+    🧰 Maintenance Request Form for tenants
 
-- **Landlord Dashboard:** View/manage maintenance requests and tenant feedback
+    💬 Feedback Submission from tenants
 
-- **Secure user authentication**
+    📋 Tenant Management for landlords
 
-- **Responsive design** (Bootstrap)
+    📊 Landlord Dashboard for reviewing submissions
 
----
+    📱 Responsive design using Bootstrap
 
-## Technologies Used
+    🧭 Client-side routing with react-router-dom
 
-- **Frontend:** React (Vite), React Router DOM, Axios, Bootstrap
+    🌐 RESTful API powered by json-server
 
-- **Backend:** Node.js, Express.js or `json-server` (for grading), CORS
+⚙️ Technologies Used
+Category Tools & Libraries
+Frontend React (Vite), React Router DOM, Axios, Bootstrap
+Backend json-server (for RESTful API), Express (optional)
+Database SQLite (optional), db.json (local API)
+Others Git, GitHub, Vercel (Deployment)
+🛠️ Getting Started (Local Development)
+✅ Prerequisites
 
-- **Database:** SQLite (file-based) or `db.json` (for local/mock API)
+    Node.js (LTS version)
 
-- **Package Manager:** npm
+    npm
 
-- **Version Control:** Git / GitHub
+    Git
 
----
+📦 Installation
 
-## Getting Started (Local Development)
-
-### Prerequisites
-
-- Node.js (LTS version)
-
-- npm (comes with Node.js)
-
-- Git
-
-### Installation
-
-1. **Clone the repository:**
-
-```bash
 git clone https://github.com/Mkikii/Accentra.git
 cd Accentra
-```
-
-2. **Install dependencies:**
-
-```bash
 npm install
-```
 
-### Running the Application
+▶️ Running the Application
 
-#### **Start the Backend Server**
+1. Start the Backend (json-server):
 
-- For grading or development, run using `json-server`:
-
-```bash
 npm install -g json-server
 json-server --watch db.json --port 4000
-```
 
-- Or, if using your custom Express backend:
+Or, if you're using a custom Express server:
 
-```bash
 npm start
-```
 
-- The backend runs on [http://localhost:4000](http://localhost:4000).
+    Backend URL: http://localhost:4000
 
-#### **Start the Frontend Dev Server**
+2. Start the Frontend (Vite):
 
-- In another terminal tab/window:
-
-```bash
 npm run dev
-```
 
-- The frontend runs on [http://localhost:5173](http://localhost:5173).
+    Frontend URL: http://localhost:5173
 
-#### **Access the Application**
+🔐 Demo Login Credentials
 
-- Go to [http://localhost:5173](http://localhost:5173) in your web browser.
+Tenant
 
----
+    Username: kikii_tenant
 
-## Deployment
+    Password: password123
 
-- **Frontend is deployed on Vercel:**
+Landlord
 
-[https://accentra-sigma.vercel.app/](https://accentra-sigma.vercel.app/)
+    Username: landlord_john
 
-- **Note:** For full functionality, you must have the backend running locally or deploy it to a public server (Render, Railway, etc.).
+    Password: adminpassword
 
----
+🌐 Deployment
 
-## Demo Login Credentials
+    Frontend Hosted On Vercel:
+    🔗 https://accentra-sigma.vercel.app/
 
-**Tenant**
+🧩 How to Make It Work After Deployment
 
-- Username: `kikii_tenant`
+    Deploy the backend (json-server or Express) to services like Render, Railway, or Cyclic.
 
-- Password: `password123`
+    Update frontend API_BASE_URL in src/api.js or .env to point to deployed backend.
 
-**Landlord**
+    Ensure CORS is properly enabled on the backend.
 
-- Username: `landlord_john`
+    Test communication between deployed frontend & backend.
 
-- Password: `adminpassword`
+    Validate all forms and protected routes work correctly.
 
----
+🧠 Project Structure Highlights
 
-## How to Make the Project Work When Deployed
+    Fully SPA-based (Single Page App) using React and index.html
 
-1. Ensure the backend API (either json-server or your Express backend) is deployed to a public server accessible by the frontend.
+    Utilizes 5+ reusable components (Navbar, Login, TenantDashboard, MaintenanceForm, FeedbackForm)
 
-2. Update the API base URL in your frontend configuration (e.g., in `src/api.js` or environment variables) to point to the deployed backend URL.
- r
-3. Deploy the frontend to a hosting service like Vercel, Netlify, or similar.
+    Built with clean and modular file structure
 
-4. Make sure CORS is properly configured on the backend to allow requests from the frontend domain.
+    Adheres to DRY principles for logic reuse
 
-5. Test the deployed frontend to verify it communicates correctly with the backend API.
+📈 Git Commit Practice
 
----
+    20+ Git commits with descriptive messages for each key feature or fix
 
-## Team Members and Roles
+    Team followed structured branching and pull/merge process via GitHub
 
-- **Maureen Karimi**
+👥 Team & Contributions
+Maureen Karimi
 
-Scrum Master & Developer. Built dashboard, navigation, core files (`app.js`, `package.json`, `db.json`, `server.js`), handled git pulls/merges, worked on main branch, and ensured successful deployment and QA, overall project management.
+    Scrum Master & Full-Stack Developer
 
-- **Jesse Kangethe**
+    Developed dashboard, routing, App.js, API integration, GitHub workflows
 
-Developed the Maintenance component.
+    Handled deployments (Vercel), QA testing, and project management
 
-- **Martha Shantelle**
+Jesse Kangethe
 
-Created header and handled styling.
+    Created the Maintenance Request feature
 
-- **Ashley Mararo**
+Martha Shantelle
 
-Built the Tenants component.
+    Designed the Header and managed UI styling
+
+Ashley Mararo
+
+    Developed the Tenants listing component
+
+📄 License
+
+MIT License © 2025 Maureen Karimi & Accentra Team
