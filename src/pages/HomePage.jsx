@@ -67,8 +67,8 @@ const HomePage = () => {
             <div className="hero-image text-center">
               <div className="custom-card p-5">
                 <i className="fas fa-building display-1 mb-4" style={{ color: '#CD853F' }}></i>
-                <h3 className="mb-3">Property Management Made Simple</h3>
-                <p className="text-muted">
+                <h3 className="mb-3 text-white fw-bold">Property Management Made Simple</h3>
+                <p className="text-light">
                   Join thousands of satisfied users who trust Accentra for their 
                   property management needs.
                 </p>
@@ -78,19 +78,19 @@ const HomePage = () => {
                     <div className="col-4">
                       <div className="stat-item">
                         <h4 className="fw-bold" style={{ color: '#8B0000' }}>500+</h4>
-                        <small className="text-muted">Properties</small>
+                        <small className="text-light">Properties</small>
                       </div>
                     </div>
                     <div className="col-4">
                       <div className="stat-item">
                         <h4 className="fw-bold" style={{ color: '#8B0000' }}>1000+</h4>
-                        <small className="text-muted">Users</small>
+                        <small className="text-light">Users</small>
                       </div>
                     </div>
                     <div className="col-4">
                       <div className="stat-item">
                         <h4 className="fw-bold" style={{ color: '#8B0000' }}>99%</h4>
-                        <small className="text-muted">Satisfaction</small>
+                        <small className="text-light">Satisfaction</small>
                       </div>
                     </div>
                   </div>

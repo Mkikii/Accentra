@@ -30,9 +30,10 @@ const Login = () => {
       const success = await login(formData.email, formData.password, formData.role);
       
       if (!success) {
-        setError('Invalid credentials or role mismatch. Please check your email, password, and selected role.');
+        setError('Invalid email, password, or role. Please verify your credentials and try again.');
       }
     } catch (err) {
+      console.error('Login error:', err);
       setError('Login failed. Please try again.');
     } finally {
       setLoading(false);

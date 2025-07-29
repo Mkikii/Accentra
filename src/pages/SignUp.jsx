@@ -56,9 +56,10 @@ const SignUp = () => {
           navigate('/login');
         }, 2000);
       } else {
-        setError('Registration failed. Username or email might already exist.');
+        setError('Registration failed. This username or email is already taken. Please try different credentials.');
       }
     } catch (err) {
+      console.error('Signup error:', err);
       setError('Registration failed. Please try again.');
     } finally {
       setLoading(false);

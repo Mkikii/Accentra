@@ -74,12 +74,14 @@ export const AuthProvider = ({ children }) => {
   const signup = async (username, password, email, role = 'tenant') => {
     try {
       // Check if user already exists
-      const existingUsers = await axios.get(`${API_BASE_URL}/users`);
-      const userExists = existingUsers.data.some(u => 
-        u.email === email || u.username === username
-      );
+      const response = await axios.get(`${API_BASE_URL}/users`);
+      const existingUsers = response.data;
+      
+      const emailExists = existingUsers.some(u => u.email === email);
+      const usernameExists = existingUsers.some(u => u.username === username);
 
-      if (userExists) {
+      if (emailExists || usernameExists) {
+        console.log('User already exists:', { emailExists, usernameExists });
         return false;
       }
 
@@ -92,14 +94,16 @@ export const AuthProvider = ({ children }) => {
         createdAt: new Date().toISOString()
       };
 
-      const response = await axios.post(`${API_BASE_URL}/users`, newUser);
+      const createResponse = await axios.post(`${API_BASE_URL}/users`, newUser);
       
-      if (response.status === 201) {
+      if (createResponse.status === 201) {
+        console.log('User created successfully:', createResponse.data);
         return true;
       }
       return false;
     } catch (error) {
       console.error('Signup error:', error);
+      console.error('Error details:', error.response?.data);
       return false;
     }
   };
