@@ -13,22 +13,6 @@
       "role": "landlord"
     }
   ],
-  "maintenanceRequests": [
-    {
-      "id": 1,
-      "tenantId": 1,
-      "issue": "plumbing",
-      "description": "Leaky faucet in kitchen",
-      "status": "open",
-      "createdAt": "2024-01-15T10:30:00.000Z"
-    }
-  ],
-  "feedback": [
-    {
-      "id": 1,
-      "name": "Kikii Molly",
-      "message": "The maintenance team was very professional and fixed my plumbing issue quickly. Great service!",
-      "createdAt": "2024-01-20T14:30:00.000Z"
-    }
-  ]
+  "maintenanceRequests": [],
+  "feedback": []
 }
