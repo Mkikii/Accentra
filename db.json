@@ -1,108 +1,60 @@
 {
   "tenants": [
     {
-      "id": "1",
-      "name": "Kikii Molly",
+      "id": 1,
+      "name": "kikii Molly",
       "unit": "A101",
       "phone": "555-1111",
       "email": "kikii@example.com",
-      "userId": 101,
-      "hasAccess": false
+      "userId": 101
     },
     {
-      "id": "2",
-      "name": "Shantel Martha",
-      "unit": "A102",
-      "phone": "555-3333",
-      "email": "shantel@example.com",
-      "userId": 102,
-      "hasAccess": false
-    },
-    {
-      "id": "3",
-      "name": "Jesse Kangethe",
+      "id": 2,
+      "name": "najma Boru",
       "unit": "B202",
       "phone": "555-2222",
-      "email": "jesse@example.com",
-      "userId": 103
+      "email": "najma@example.com",
+      "userId": 102
     },
     {
-      "id": "4",
-      "name": "Ashley Mararo",
-      "unit": "C303",
-      "phone": "555-4444",
-      "email": "ashley.mararo@example.com",
-      "userId": 104
+      "name": "Cactus Jack",
+      "unit": "S301",
+      "phone": "0756483928",
+      "email": "Cactusjack@outlook.com",
+      "userId": 504,
+      "id": 3
     }
   ],
   "maintenanceRequests": [
     {
-      "id": "1",
+      "id": 1,
       "tenantId": 1,
       "description": "Leaky faucet in kitchen.",
-      "status": "Pending",
       "dateRequested": "2023-01-15",
-      "name": "Kikii Molly",
-      "unit": "A101",
-      "contact": "kikii@example.com"
+      "status": 2
     },
     {
-      "id": "2",
       "tenantId": 2,
-      "description": "Broken AC unit.",
-      "status": "In Progress",
-      "dateRequested": "2023-01-20",
-      "name": "Shantel Martha",
-      "unit": "A102",
-      "contact": "shantel@example.com"
+      "description": "Broken AC in room",
+      "dateRequested": "2025-07-24T21:16:44.250Z",
+      "id": 2,
+      "status": 1
+    },
+    {
+      "tenantId": 3,
+      "description": "Meter box does not display well",
+      "dateRequested": "2025-07-27T11:44:04.636Z",
+      "id": 3,
+      "status": 2
     }
   ],
-  "users": [
+  "landlords": [
     {
-      "id": "100",
-      "username": "landlord_john",
-      "password": "adminpassword",
-      "role": "landlord"
-    },
-    {
-      "id": "101",
-      "username": "kikii_tenant",
-      "password": "password123",
-      "role": "tenant",
-      "tenantId": 1,
-      "name": "Kikii Molly",
-      "unit": "A101",
-      "contact": "kikii@example.com"
-    },
-    {
-      "id": "102",
-      "username": "shantel_tenant",
-      "password": "password123",
-      "role": "tenant",
-      "tenantId": 2,
-      "name": "Shantel Martha",
-      "unit": "A102",
-      "contact": "shantel@example.com"
-    },
-    {
-      "id": "103",
-      "username": "jesse_tenant",
-      "password": "password123",
-      "role": "tenant",
-      "tenantId": 3,
-      "name": "Jesse Kangethe",
-      "unit": "B202",
-      "contact": "jesse@example.com"
-    },
-    {
-      "id": "104",
-      "username": "ashley_tenant",
-      "password": "password123",
-      "role": "tenant",
-      "tenantId": 4,
-      "name": "Ashley Mararo",
-      "unit": "C303",
-      "contact": "ashley.mararo@example.com"
+      "id": 1,
+      "name": "James Mwangi",
+      "phone": "0712345678",
+      "email": "james.mwangi@example.com",
+      "userId": "landlord001"
     }
   ]
 }
