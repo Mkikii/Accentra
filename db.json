@@ -1,14 +1,14 @@
 {
   "users": [
     {
-      "id": "1",
+      "id": 1,
       "username": "kikii_tenant",
       "password": "password123",
       "role": "tenant",
       "email": "kikii@example.com"
     },
     {
-      "id": "2",
+      "id": 2,
       "username": "landlord_john",
       "password": "adminpassword",
       "role": "landlord",
@@ -17,8 +17,8 @@
   ],
   "maintenanceRequests": [
     {
-      "id": "1",
-      "tenantId": "1",
+      "id": 1,
+      "tenantId": 1,
       "issue": "plumbing",
       "description": "Leaky faucet in kitchen",
       "status": "Pending",
@@ -27,20 +27,20 @@
   ],
   "feedback": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Kikii Molly",
       "message": "The maintenance team was very professional and fixed my plumbing issue quickly. Great service!",
       "createdAt": "2024-01-20T14:30:00.000Z"
     },
     {
-      "id": "2", 
+      "id": 2,
       "name": "Najma Boru",
       "message": "I appreciate how responsive the landlord is to our concerns. The property is well-maintained.",
       "createdAt": "2024-01-18T09:15:00.000Z"
     },
     {
-      "id": "3",
-      "name": "Dennis Kiprotich", 
+      "id": 3,
+      "name": "Dennis Kiprotich",
       "message": "Excellent property management! The online system makes it easy to submit requests and track progress.",
       "createdAt": "2024-01-16T16:45:00.000Z"
     }

@@ -1,47 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
-const TenantDashboard = () => {
-  const [tenants, setTenants] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+import { Link } from 'react-router-dom'
 
-  useEffect(() => {
-    const fetchTenants = async () => {
-      try {
-        const response = await axios.get('https://accentra-api.herokuapp.com/api/tenants', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-        setTenants(response.data);
-        setLoading(false);
-      } catch (error) {
-        setError(error.message);
-        setLoading(false);
-      }
-    };
-    fetchTenants();
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
+export default function TenantDashboard() {
   return (
-    <div>
-      <h1>Tenant Dashboard</h1>
-      <ul>
-        {tenants.map((tenant) => (
-          <li key={tenant.id}>{tenant.name}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+    <div className="container py-5">
+      <h1 className="mb-4">Tenant Dashboard</h1>
+      <div className="row g-4">
+        <div className="col-md-6">
+          <div className="card h-100">
+            <div className="card-body d-flex flex-column justify-content-between">
+              <h5 className="card-title">Submit Maintenance Request</h5>
+              <p className="card-text">Let us know if something needs fixing in your unit.</p>
+              <Link to="/maintenance" className="btn btn-primary mt-auto">Go</Link>
+            </div>
+          </div>
+        </div>
 
-export default TenantDashboard;
+        <div className="col-md-6">
+          <div className="card h-100">
+            <div className="card-body d-flex flex-column justify-content-between">
+              <h5 className="card-title">Send Feedback</h5>
+              <p className="card-text">Give us your thoughts on your experience.</p>
+              <Link to="/feedback" className="btn btn-secondary mt-auto">Send Feedback</Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

@@ -1,53 +1,167 @@
 # Accentra - Property Management System
 
-## Author
+**Author:** Maureen Karimi
 
-Maureen Karimi
+**Team Members:**
 
-## Description
+- Maureen Karimi (Scrum Master & Developer: Dashboard, Navigation, `app.js`, `package.json`, `db.json`, `server.js`, git pull/merge, deployment & QA)
 
-Accentra is a property management system designed to help property owners and managers keep track of their properties and tenants. The system allows users to view and manage tenant information, submit maintenance requests, and view property details.
+- Jesse Kangethe (Maintenance component creation)
 
-## Project Setup Instructions
+- Martha Shantelle (Header and styling component)
 
-1. Clone the repository: `git clone https://github.com/Mkikii/Accentra.git`
-2. Install dependencies: `npm install`
-3. Start the application: `npm start`
+- Ashley Mararo (Tenants component)
 
-## Live Site
+---
 
-https://accentra-sigma.vercel.app/
+## Project Description
+
+Accentra is a web application designed to streamline property management tasks for both tenants and landlords. It allows tenants to submit maintenance requests and feedback, and landlords to manage tenant information, view all requests, and monitor feedback in real time. The app features secure authentication, easy navigation, and a user-friendly design.
+
+---
+
+## Key Features
+
+- **Tenant and Landlord login roles**
+
+- **Tenant Dashboard:** Submit maintenance requests and feedback
+
+- **Landlord Dashboard:** View/manage maintenance requests and tenant feedback
+
+- **Secure user authentication**
+
+- **Responsive design** (Bootstrap)
+
+---
 
 ## Technologies Used
 
-* Frontend: React (Vite), React Router DOM, Bootstrap
-* Backend: json-server (RESTful API)
-* Deployment: Vercel (Frontend), Render (Backend)
+- **Frontend:** React (Vite), React Router DOM, Axios, Bootstrap
 
-## Features
+- **Backend:** Node.js, Express.js or `json-server` (for grading), CORS
 
-* Login System: Use provided credentials to log in
-* Signup System: Create new accounts
-* Tenant Dashboard: Submit maintenance requests, view status
-* Landlord Dashboard: Manage requests, view tenant info
-* Responsive Design: Works on all devices
+- **Database:** SQLite (file-based) or `db.json` (for local/mock API)
 
-## API Endpoints
+- **Package Manager:** npm
 
-* `GET /users` - User authentication
-* `POST /users` - User registration
-* `GET /maintenanceRequests` - Fetch requests
-* `POST /maintenanceRequests` - Submit requests
-* `POST /feedback` - Submit feedback
+- **Version Control:** Git / GitHub
 
-## License
+---
 
-MIT License
+## Getting Started (Local Development)
 
-Copyright 2023 Maureen Karimi
+### Prerequisites
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+- Node.js (LTS version)
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+- npm (comes with Node.js)
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+- Git
+
+### Installation
+
+1. **Clone the repository:**
+
+```bash
+git clone https://github.com/Mkikii/Accentra.git
+cd Accentra
+```
+
+2. **Install dependencies:**
+
+```bash
+npm install
+```
+
+### Running the Application
+
+#### **Start the Backend Server**
+
+- For grading or development, run using `json-server`:
+
+```bash
+npm install -g json-server
+json-server --watch db.json --port 4000
+```
+
+- Or, if using your custom Express backend:
+
+```bash
+npm start
+```
+
+- The backend runs on [http://localhost:4000](http://localhost:4000).
+
+#### **Start the Frontend Dev Server**
+
+- In another terminal tab/window:
+
+```bash
+npm run dev
+```
+
+- The frontend runs on [http://localhost:5173](http://localhost:5173).
+
+#### **Access the Application**
+
+- Go to [http://localhost:5173](http://localhost:5173) in your web browser.
+
+---
+
+## Deployment
+
+- **Frontend is deployed on Vercel:**
+
+[https://accentra-sigma.vercel.app/](https://accentra-sigma.vercel.app/)
+
+- **Note:** For full functionality, you must have the backend running locally or deploy it to a public server (Render, Railway, etc.).
+
+---
+
+## Demo Login Credentials
+
+**Tenant**
+
+- Username: `kikii_tenant`
+
+- Password: `password123`
+
+**Landlord**
+
+- Username: `landlord_john`
+
+- Password: `adminpassword`
+
+---
+
+## How to Make the Project Work When Deployed
+
+1. Ensure the backend API (either json-server or your Express backend) is deployed to a public server accessible by the frontend.
+
+2. Update the API base URL in your frontend configuration (e.g., in `src/api.js` or environment variables) to point to the deployed backend URL.
+ r
+3. Deploy the frontend to a hosting service like Vercel, Netlify, or similar.
+
+4. Make sure CORS is properly configured on the backend to allow requests from the frontend domain.
+
+5. Test the deployed frontend to verify it communicates correctly with the backend API.
+
+---
+
+## Team Members and Roles
+
+- **Maureen Karimi**
+
+Scrum Master & Developer. Built dashboard, navigation, core files (`app.js`, `package.json`, `db.json`, `server.js`), handled git pulls/merges, worked on main branch, and ensured successful deployment and QA, overall project management.
+
+- **Jesse Kangethe**
+
+Developed the Maintenance component.
+
+- **Martha Shantelle**
+
+Created header and handled styling.
+
+- **Ashley Mararo**
+
+Built the Tenants component.

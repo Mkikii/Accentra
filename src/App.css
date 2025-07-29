@@ -1,78 +1,365 @@
-.App {
-  text-align: center;
+/* Dark Morphism Theme */
+:root {
+  --primary-color: #8B0000; /* Dark red */
+  --secondary-color: #A0522D; /* Saddle brown */
+  --accent-color: #CD853F; /* Peru */
+  --dark-bg: #1a1a1a;
+  --darker-bg: #0f0f0f;
+  --card-bg: #2a2a2a;
+  --text-light: #e0e0e0;
+  --text-muted: #a0a0a0;
+  --shadow-dark: rgba(0, 0, 0, 0.5);
+  --shadow-light: rgba(255, 255, 255, 0.1);
+  --gradient-dark: linear-gradient(135deg, #8B0000 0%, #A0522D 50%, #CD853F 100%);
+  --morphism-bg: rgba(42, 42, 42, 0.8);
+  --morphism-border: rgba(255, 255, 255, 0.1);
 }
 
+/* Dark body background */
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background: var(--dark-bg);
+  color: var(--text-light);
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+.App {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #2a2a2a 100%);
 }
 
-/* Responsive fixes */
-.container {
-  max-width: 100%;
-  padding: 0 15px;
+/* Dark Morphism Login Container */
+.gradient-bg {
+  background: var(--dark-bg);
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
 }
 
-.card {
-  margin-bottom: 1rem;
+.gradient-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-dark);
+  opacity: 0.1;
+  z-index: 1;
 }
 
-.btn-group {
-  flex-wrap: wrap;
+.gradient-bg .container {
+  position: relative;
+  z-index: 2;
 }
 
-.btn-group .btn {
-  margin: 2px;
+/* Morphism Card */
+.custom-card {
+  background: var(--morphism-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--morphism-border);
+  border-radius: 25px;
+  box-shadow: 
+    20px 20px 40px var(--shadow-dark),
+    -20px -20px 40px rgba(255, 255, 255, 0.05),
+    inset 5px 5px 10px rgba(255, 255, 255, 0.1),
+    inset -5px -5px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  overflow: hidden;
 }
 
-/* Mobile responsive */
-@media (max-width: 768px) {
-  .container {
-    padding: 0 10px;
-  }
-  
-  .d-flex.justify-content-between {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .btn-group {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  .btn-group .btn {
-    width: 100%;
-    margin: 2px 0;
-  }
-  
-  .col-md-8, .col-md-4, .col-md-6 {
-    margin-bottom: 1rem;
-  }
+.custom-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 
+    25px 25px 50px var(--shadow-dark),
+    -25px -25px 50px rgba(255, 255, 255, 0.08),
+    inset 5px 5px 10px rgba(255, 255, 255, 0.15),
+    inset -5px -5px 10px rgba(0, 0, 0, 0.4);
 }
 
-/* Card improvements */
+/* Dark Morphism Header */
+.card-header-custom {
+  background: var(--gradient-dark);
+  color: white;
+  border-radius: 25px 25px 0 0 !important;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-header-custom::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Dark Form Controls */
+.form-control-custom {
+  background: rgba(26, 26, 26, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 15px 20px;
+  color: var(--text-light);
+  transition: all 0.3s ease;
+  box-shadow: 
+    inset 5px 5px 10px rgba(0, 0, 0, 0.3),
+    inset -5px -5px 10px rgba(255, 255, 255, 0.05);
+}
+
+.form-control-custom:focus {
+  background: rgba(26, 26, 26, 0.9);
+  border-color: var(--primary-color);
+  box-shadow: 
+    0 0 20px rgba(139, 0, 0, 0.3),
+    inset 5px 5px 10px rgba(0, 0, 0, 0.4),
+    inset -5px -5px 10px rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.form-control-custom::placeholder {
+  color: var(--text-muted);
+}
+
+/* Dark Morphism Buttons */
+.btn-primary-custom {
+  background: var(--gradient-dark);
+  border: none;
+  border-radius: 20px;
+  padding: 15px 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    8px 8px 16px rgba(0, 0, 0, 0.4),
+    -8px -8px 16px rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.btn-primary-custom::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-primary-custom:hover::before {
+  left: 100%;
+}
+
+.btn-primary-custom:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    12px 12px 24px rgba(0, 0, 0, 0.5),
+    -12px -12px 24px rgba(255, 255, 255, 0.08);
+  background: linear-gradient(135deg, #A0522D 0%, #8B0000 50%, #CD853F 100%);
+}
+
+.btn-primary-custom:active {
+  transform: translateY(0);
+  box-shadow: 
+    4px 4px 8px rgba(0, 0, 0, 0.3),
+    -4px -4px 8px rgba(255, 255, 255, 0.03);
+}
+
+/* Dark Outline Button */
+.btn-outline-custom {
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  border-radius: 20px;
+  padding: 15px 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 
+    8px 8px 16px rgba(0, 0, 0, 0.3),
+    -8px -8px 16px rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.btn-outline-custom:hover {
+  background: var(--gradient-dark);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 
+    12px 12px 24px rgba(0, 0, 0, 0.4),
+    -12px -12px 24px rgba(255, 255, 255, 0.08);
+}
+
+/* Dark Alert Styling */
+.alert-custom {
+  background: rgba(42, 42, 42, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  color: var(--text-light);
+  box-shadow: 
+    inset 3px 3px 6px rgba(0, 0, 0, 0.3),
+    inset -3px -3px 6px rgba(255, 255, 255, 0.05);
+}
+
+.alert-danger {
+  border-left: 4px solid #ff4444;
+  background: rgba(255, 68, 68, 0.1);
+}
+
+.alert-success {
+  border-left: 4px solid #00ff88;
+  background: rgba(0, 255, 136, 0.1);
+}
+
+.alert-info-custom {
+  background: rgba(139, 0, 0, 0.1);
+  border: 1px solid rgba(139, 0, 0, 0.3);
+  color: var(--text-light);
+}
+
+/* Demo credentials styling */
+.alert-info-custom {
+  background: rgba(139, 0, 0, 0.15) !important;
+  border: 1px solid rgba(139, 0, 0, 0.4) !important;
+  color: var(--text-light) !important;
+  border-radius: 15px;
+}
+
+.alert-info-custom h5,
+.alert-info-custom h6 {
+  color: var(--accent-color) !important;
+  font-weight: 600;
+}
+
+.alert-info-custom .bg-white {
+  background: rgba(42, 42, 42, 0.9) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: var(--text-light) !important;
+}
+
+.alert-info-custom strong {
+  color: var(--primary-color) !important;
+}
+
+.alert-info-custom .small {
+  color: var(--text-light) !important;
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.text-success {
+  color: #28a745 !important;
+}
+
+/* Dark Form Labels */
+.form-label {
+  color: var(--text-light);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* Dark Links */
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: var(--primary-color);
+  text-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+}
+
+/* Loading Spinner Dark */
+.loading-spinner {
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: var(--primary-color);
+  animation: spin 1s linear infinite;
+}
+
+/* Dark Hero Section */
+.hero-section {
+  background: var(--dark-bg);
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-dark);
+  opacity: 0.15;
+  z-index: 1;
+}
+
+.hero-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Floating particles effect */
+.gradient-bg::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(160, 82, 45, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 60%, rgba(205, 133, 63, 0.1) 0%, transparent 50%);
+  animation: float 6s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Dark text colors */
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+/* Dark card body */
 .card-body {
-  padding: 1.5rem;
+  background: transparent;
+  color: var(--text-light);
 }
 
-.badge {
-  font-size: 0.8em;
-}
-
-/* Button improvements */
-.btn-sm {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
+/* Responsive improvements for dark theme */
+@media (max-width: 768px) {
+  .custom-card {
+    margin: 1rem;
+    border-radius: 20px;
+  }
+  
+  .card-header-custom {
+    padding: 1.5rem;
+  }
+  
+  .btn-custom {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
 }
