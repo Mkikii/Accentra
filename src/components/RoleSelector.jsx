@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router'
 import "../styling/starter.css"
 
-const RoleSelector = ({ role, setRole }) => {
+const RoleSelector = ({ setRole }) => {
   const navigate = useNavigate()
 
   const handleRoleChange = (e) => {
@@ -24,6 +24,8 @@ const RoleSelector = ({ role, setRole }) => {
         <option value="tenant">Tenant</option>
         <option value="landlord">Landlord</option>
       </select>
+      <p>Example of tenant: kikii Molly , Password: 101 </p>
+      <p>Example of landlord: James Mwangi, Password: landlord001</p>
     </div>
   )
 }
