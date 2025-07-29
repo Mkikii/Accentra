@@ -9,7 +9,7 @@ Accentra is a modern, responsive single-page application (SPA) built with React 
 
 ### Key Features
 - 🔐 Secure user authentication with role-based access
-- 🏠 Property listing and management
+- 🏠 Property  management
 - 🔧 Maintenance request system
 - 💬 Feedback submission system
 - 📊 Dashboard for landlords and tenants
