@@ -70,7 +70,7 @@ Open your web browser and go to http://localhost:5173/.
 
 - The frontend of this application is deployed on Vercel:
 
-https://accentra-sigma.vercel.app/
+https://accentra-9jq6xdnsd-mkikiis-projects.vercel.app/
 
 **(Note: For full functionality, the backend server must be running locally or deployed separately.)**
 
